@@ -45,7 +45,7 @@ apis:
       - type: Documentation
         url: https://upstash.com/docs/qstash/overall/getstarted
       - type: OpenAPI
-        url: https://upstash.com/docs/llms.txt
+        url: https://raw.githubusercontent.com/api-evangelist/qstash/refs/heads/main/openapi/qstash-api-openapi.yml
 common:
   - type: Website
     url: https://upstash.com/qstash
@@ -69,6 +69,10 @@ common:
     url: rate-limits/qstash-rate-limits.yml
   - type: FinOps
     url: finops/qstash-finops.yml
+  - type: Vocabulary
+    url: vocabulary/qstash-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/qstash-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

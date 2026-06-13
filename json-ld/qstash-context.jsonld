@@ -1,0 +1,144 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "qstash": "https://upstash.com/docs/qstash/vocabulary#",
+
+    "QStash": "qstash:QStash",
+    "Message": "qstash:Message",
+    "Schedule": "qstash:Schedule",
+    "Queue": "qstash:Queue",
+    "UrlGroup": "qstash:UrlGroup",
+    "DeadLetterQueue": "qstash:DeadLetterQueue",
+    "FlowControlKey": "qstash:FlowControlKey",
+    "Callback": "qstash:Callback",
+    "FailureCallback": "qstash:FailureCallback",
+    "LogEntry": "qstash:LogEntry",
+
+    "messageId": {
+      "@id": "qstash:messageId",
+      "@type": "xsd:string"
+    },
+    "destination": {
+      "@id": "qstash:destination",
+      "@type": "@id"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "body": {
+      "@id": "schema:Text",
+      "@type": "xsd:string"
+    },
+    "headers": {
+      "@id": "qstash:headers",
+      "@container": "@set"
+    },
+    "delay": {
+      "@id": "qstash:delay",
+      "@type": "xsd:string"
+    },
+    "retries": {
+      "@id": "qstash:retries",
+      "@type": "xsd:integer"
+    },
+    "maxRetries": {
+      "@id": "qstash:maxRetries",
+      "@type": "xsd:integer"
+    },
+    "retried": {
+      "@id": "qstash:retried",
+      "@type": "xsd:integer"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:integer"
+    },
+    "state": {
+      "@id": "schema:status",
+      "@type": "xsd:string"
+    },
+    "cron": {
+      "@id": "qstash:cron",
+      "@type": "xsd:string"
+    },
+    "scheduleId": {
+      "@id": "qstash:scheduleId",
+      "@type": "xsd:string"
+    },
+    "paused": {
+      "@id": "qstash:paused",
+      "@type": "xsd:boolean"
+    },
+    "parallelism": {
+      "@id": "qstash:parallelism",
+      "@type": "xsd:integer"
+    },
+    "rate": {
+      "@id": "qstash:rate",
+      "@type": "xsd:integer"
+    },
+    "period": {
+      "@id": "qstash:period",
+      "@type": "xsd:integer"
+    },
+    "dlqId": {
+      "@id": "qstash:dlqId",
+      "@type": "xsd:string"
+    },
+    "queueName": {
+      "@id": "qstash:queueName",
+      "@type": "xsd:string"
+    },
+    "endpoints": {
+      "@id": "qstash:endpoints",
+      "@container": "@set"
+    },
+    "topicName": {
+      "@id": "qstash:topicName",
+      "@type": "xsd:string"
+    },
+    "callbackUrl": {
+      "@id": "qstash:callbackUrl",
+      "@type": "@id"
+    },
+    "failureCallbackUrl": {
+      "@id": "qstash:failureCallbackUrl",
+      "@type": "@id"
+    },
+    "deduplicationId": {
+      "@id": "qstash:deduplicationId",
+      "@type": "xsd:string"
+    },
+    "responseStatus": {
+      "@id": "qstash:responseStatus",
+      "@type": "xsd:integer"
+    },
+    "responseBody": {
+      "@id": "qstash:responseBody",
+      "@type": "xsd:string"
+    },
+    "nextDeliveryTime": {
+      "@id": "qstash:nextDeliveryTime",
+      "@type": "xsd:integer"
+    },
+    "waitlistSize": {
+      "@id": "qstash:waitlistSize",
+      "@type": "xsd:integer"
+    },
+    "pinned": {
+      "@id": "qstash:pinned",
+      "@type": "xsd:boolean"
+    },
+    "cursor": {
+      "@id": "qstash:cursor",
+      "@type": "xsd:string"
+    },
+    "messages": {
+      "@id": "qstash:messages",
+      "@container": "@set"
+    }
+  }
+}

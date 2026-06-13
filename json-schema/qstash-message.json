@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/qstash/main/json-schema/qstash-message.json",
+  "title": "QStash Message",
+  "description": "A message published to QStash for delivery to a destination URL",
+  "type": "object",
+  "properties": {
+    "messageId": {
+      "type": "string",
+      "description": "Unique identifier for the message assigned by QStash",
+      "example": "msg_2XavMmRcJHJf7HkNtNqjfVf8uQe"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Destination URL the message will be delivered to"
+    },
+    "topicName": {
+      "type": "string",
+      "description": "URL Group name if delivered via URL Group"
+    },
+    "body": {
+      "type": "string",
+      "description": "Base64-encoded message body payload"
+    },
+    "header": {
+      "type": "object",
+      "description": "HTTP headers from the original publish request",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "state": {
+      "type": "string",
+      "description": "Current delivery state of the message",
+      "enum": ["CREATED", "ACTIVE", "DELIVERED", "ERROR", "RETRY", "CANCEL_REQUESTED", "CANCELLED"]
+    },
+    "createdAt": {
+      "type": "integer",
+      "description": "Unix timestamp (milliseconds) when the message was created"
+    },
+    "notBefore": {
+      "type": "integer",
+      "description": "Unix timestamp before which delivery will not be attempted"
+    },
+    "scheduleId": {
+      "type": "string",
+      "description": "Associated schedule ID if message originated from a schedule"
+    },
+    "retried": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of delivery attempts made so far"
+    },
+    "maxRetries": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Maximum configured retry attempts"
+    },
+    "responseStatus": {
+      "type": "integer",
+      "description": "HTTP response status code from the last delivery attempt"
+    },
+    "responseBody": {
+      "type": "string",
+      "description": "Response body from the last delivery attempt"
+    },
+    "nextDeliveryTime": {
+      "type": "integer",
+      "description": "Unix timestamp for the next scheduled delivery attempt"
+    },
+    "dlqId": {
+      "type": "string",
+      "description": "Dead letter queue identifier (present only if message is in DLQ)"
+    },
+    "queueName": {
+      "type": "string",
+      "description": "Name of the queue if message was delivered via a queue"
+    },
+    "callerIP": {
+      "type": "string",
+      "description": "IP address of the publisher"
+    }
+  },
+  "required": ["messageId"],
+  "additionalProperties": false
+}

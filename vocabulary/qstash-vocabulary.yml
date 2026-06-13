@@ -1,0 +1,140 @@
+vocabulary:
+  - term: QStash
+    definition: >-
+      Upstash's serverless message queue and task scheduling REST API that delivers
+      HTTP messages to endpoints reliably using stateless HTTP requests, designed
+      for serverless and edge runtimes.
+
+  - term: Message
+    definition: >-
+      A discrete unit of data published to QStash for delivery to a destination
+      URL. Messages are stored durably and delivered with automatic retry logic.
+      Maximum size is 1 MB.
+
+  - term: Destination
+    definition: >-
+      The target HTTP endpoint URL or URL Group name to which QStash delivers a
+      message. Destinations must be publicly reachable HTTP APIs.
+
+  - term: Publish
+    definition: >-
+      The act of sending a message to QStash via POST /v2/publish/{destination}.
+      QStash accepts the message, stores it durably, and handles delivery
+      asynchronously.
+
+  - term: Dead Letter Queue (DLQ)
+    definition: >-
+      A holding area where messages are moved after exhausting all configured
+      delivery retry attempts. DLQ messages can be inspected, republished, or
+      deleted.
+
+  - term: Schedule
+    definition: >-
+      A CRON-based configuration that causes QStash to deliver a message to a
+      destination on a recurring basis. Schedules support standard CRON syntax
+      and IANA timezone identifiers. Can be created up to one year in advance.
+
+  - term: CRON Expression
+    definition: >-
+      A standard cron syntax string (e.g. "0 0 * * *") that defines when a
+      scheduled message should be delivered. Timezone support is available via
+      the CRON_TZ prefix (e.g. "CRON_TZ=America/New_York 0 4 * * *").
+
+  - term: Queue
+    definition: >-
+      A named FIFO (first-in, first-out) buffer that ensures ordered message
+      delivery to a destination. Queues support configurable parallelism for
+      controlled throughput.
+
+  - term: URL Group
+    definition: >-
+      A named collection of endpoint URLs. Publishing to a URL Group causes
+      QStash to fan-out and deliver the message to all configured endpoints
+      simultaneously (broadcast delivery).
+
+  - term: Enqueue
+    definition: >-
+      The act of adding a message to a FIFO queue via POST
+      /v2/enqueue/{queueName}/{destination} for ordered delivery.
+
+  - term: Retry
+    definition: >-
+      Automatic reattempt of message delivery when the destination returns a
+      non-2xx HTTP response or does not respond. Configurable via
+      Upstash-Retries header (0-5 attempts).
+
+  - term: Retry Delay
+    definition: >-
+      The waiting period between delivery retry attempts. Configurable via
+      Upstash-Retry-Delay header using math expressions (e.g. "pow(2, retries)").
+
+  - term: Callback
+    definition: >-
+      A user-specified URL (Upstash-Callback header) that receives an HTTP POST
+      notification when a message is successfully delivered to its destination.
+
+  - term: Failure Callback
+    definition: >-
+      A user-specified URL (Upstash-Failure-Callback header) that receives an
+      HTTP POST notification when a message fails all delivery retries and moves
+      to the DLQ.
+
+  - term: Deduplication
+    definition: >-
+      A mechanism to prevent duplicate message delivery within a 10-minute window.
+      Can be triggered manually via Upstash-Deduplication-Id header or
+      automatically via Upstash-Content-Based-Deduplication header.
+
+  - term: Delay
+    definition: >-
+      A configurable postponement of message delivery from when it is published.
+      Set via Upstash-Delay header (e.g. "5m", "1h") or Upstash-Not-Before Unix
+      timestamp.
+
+  - term: Batch
+    definition: >-
+      A single API call to POST /v2/batch that publishes multiple messages at once
+      to different destinations, URL Groups, or queues. Failed messages do not
+      prevent other batch messages from being processed.
+
+  - term: Flow Control
+    definition: >-
+      A mechanism to limit delivery parallelism and/or rate for a named key.
+      Prevents overwhelming destination endpoints by capping concurrent deliveries
+      and messages per time period.
+
+  - term: Flow Control Key
+    definition: >-
+      A string identifier grouping messages under a shared flow control policy.
+      Set via Upstash-Flow-Control-Key header when publishing.
+
+  - term: Parallelism
+    definition: >-
+      The maximum number of messages delivered concurrently for a queue or flow
+      control key. Defaults to 1 for queues; configurable per plan.
+
+  - term: Rate Limit
+    definition: >-
+      A cap on the number of messages delivered within a time period for a flow
+      control key. Enforced via rate and period settings.
+
+  - term: Bearer Token
+    definition: >-
+      The authentication credential for QStash API requests. Obtained from the
+      Upstash console and passed via Authorization header or qstash_token query
+      parameter.
+
+  - term: Upstash-Forward
+    definition: >-
+      A header prefix (e.g. Upstash-Forward-My-Header) used to forward custom
+      headers to the destination. QStash strips the prefix before forwarding.
+
+  - term: Global Parallelism
+    definition: >-
+      The maximum number of simultaneous in-flight message deliveries across the
+      entire QStash account, bounded by the plan tier.
+
+  - term: Message State
+    definition: >-
+      The lifecycle status of a QStash message. States include CREATED, ACTIVE,
+      DELIVERED, ERROR, RETRY, CANCEL_REQUESTED, and CANCELLED.

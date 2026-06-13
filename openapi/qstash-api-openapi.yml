@@ -1,0 +1,1254 @@
+openapi: 3.0.3
+info:
+  title: QStash API
+  description: >-
+    QStash is a serverless message queue and task scheduling REST API from Upstash
+    that delivers HTTP messages to endpoints reliably without requiring any
+    long-lived connections or infrastructure management. Built entirely on
+    stateless HTTP requests, it is designed for serverless and edge runtimes where
+    traditional message brokers are impractical. QStash supports automatic retries,
+    CRON-based scheduling up to one year in advance, URL group broadcasting for
+    fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.
+  version: '2.0'
+  contact:
+    name: Upstash Support
+    url: https://upstash.com/docs/qstash/overall/getstarted
+  license:
+    name: Upstash Terms of Service
+    url: https://upstash.com/trust/terms.pdf
+externalDocs:
+  description: QStash Documentation
+  url: https://upstash.com/docs/qstash/overall/getstarted
+servers:
+  - url: https://qstash.upstash.io/v2
+    description: QStash production API
+security:
+  - BearerAuth: []
+tags:
+  - name: Messages
+    description: Publish and manage messages
+  - name: Schedules
+    description: Create and manage CRON-based scheduled messages
+  - name: Queues
+    description: Manage FIFO queues
+  - name: URL Groups
+    description: Manage URL groups for fan-out delivery
+  - name: Dead Letter Queue
+    description: Manage dead letter queue messages
+  - name: Flow Control
+    description: Manage flow control keys for rate and parallelism limiting
+  - name: Logs
+    description: Retrieve message delivery logs
+
+paths:
+
+  /publish/{destination}:
+    post:
+      operationId: publishMessage
+      summary: Publish a message
+      description: >-
+        Publish a message to a destination URL or URL Group. QStash will store
+        the message durably and deliver it to the destination with automatic
+        retries on failure.
+      tags:
+        - Messages
+      parameters:
+        - name: destination
+          in: path
+          required: true
+          description: Destination URL or URL Group name
+          schema:
+            type: string
+          example: https://example.com/webhook
+        - name: Upstash-Delay
+          in: header
+          description: Delay message delivery by this duration (e.g. "5m", "1h")
+          schema:
+            type: string
+          example: 5m
+        - name: Upstash-Retries
+          in: header
+          description: Number of retry attempts on delivery failure (0-5)
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 5
+        - name: Upstash-Retry-Delay
+          in: header
+          description: Delay expression between retries (supports math functions like pow, sqrt)
+          schema:
+            type: string
+        - name: Upstash-Callback
+          in: header
+          description: URL to receive callback after successful delivery
+          schema:
+            type: string
+            format: uri
+        - name: Upstash-Failure-Callback
+          in: header
+          description: URL to receive callback on delivery failure after all retries
+          schema:
+            type: string
+            format: uri
+        - name: Upstash-Deduplication-Id
+          in: header
+          description: Manual deduplication ID; duplicate messages within 10 minutes are ignored
+          schema:
+            type: string
+        - name: Upstash-Content-Based-Deduplication
+          in: header
+          description: Automatically deduplicate based on destination, body, and content headers
+          schema:
+            type: boolean
+        - name: Upstash-Timeout
+          in: header
+          description: Timeout for the delivery request (e.g. "30s")
+          schema:
+            type: string
+        - name: Upstash-Not-Before
+          in: header
+          description: Unix timestamp before which delivery should not occur
+          schema:
+            type: integer
+        - name: Upstash-Schedule-Id
+          in: header
+          description: Unique schedule ID; used to create or overwrite a schedule
+          schema:
+            type: string
+        - name: Upstash-Cron
+          in: header
+          description: CRON expression to schedule recurring delivery (e.g. "0 0 * * *")
+          schema:
+            type: string
+        - name: Upstash-Method
+          in: header
+          description: HTTP method to use when calling the destination (default POST)
+          schema:
+            type: string
+            enum: [GET, POST, PUT, PATCH, DELETE, HEAD]
+      requestBody:
+        description: Message payload to deliver to the destination
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              hello: world
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '201':
+          description: Message published successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishResponse'
+        '202':
+          description: Duplicate message detected; existing message returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+
+  /batch:
+    post:
+      operationId: batchPublish
+      summary: Publish multiple messages in a single request
+      description: >-
+        Publish multiple messages in a single batch request. Messages can target
+        different destinations, URL Groups, or queues. If one message fails, the
+        others still proceed.
+      tags:
+        - Messages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BatchMessage'
+            example:
+              - destination: https://example.com/endpoint1
+                body: '{"event":"ping"}'
+                headers:
+                  Content-Type: application/json
+              - destination: https://example.com/endpoint2
+                body: '{"event":"pong"}'
+      responses:
+        '200':
+          description: Batch result; includes per-message success or error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BatchResponseItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /enqueue/{queueName}/{destination}:
+    post:
+      operationId: enqueueMessage
+      summary: Enqueue a message to a FIFO queue
+      description: >-
+        Add a message to the specified FIFO queue for ordered delivery to the
+        destination URL.
+      tags:
+        - Queues
+        - Messages
+      parameters:
+        - name: queueName
+          in: path
+          required: true
+          description: Name of the target queue
+          schema:
+            type: string
+        - name: destination
+          in: path
+          required: true
+          description: Destination URL for message delivery
+          schema:
+            type: string
+        - name: Upstash-Delay
+          in: header
+          description: Delay message delivery by this duration
+          schema:
+            type: string
+        - name: Upstash-Retries
+          in: header
+          description: Number of retry attempts
+          schema:
+            type: integer
+        - name: Upstash-Deduplication-Id
+          in: header
+          description: Manual deduplication ID
+          schema:
+            type: string
+      requestBody:
+        description: Message payload
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '201':
+          description: Message enqueued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+
+  /schedules/{destination}:
+    post:
+      operationId: createSchedule
+      summary: Create or update a schedule
+      description: >-
+        Create a CRON-scheduled recurring message delivery. The Upstash-Cron
+        header defines the schedule. Timezone support via CRON_TZ prefix.
+      tags:
+        - Schedules
+      parameters:
+        - name: destination
+          in: path
+          required: true
+          description: Destination URL, URL Group name, or queue destination
+          schema:
+            type: string
+        - name: Upstash-Cron
+          in: header
+          required: true
+          description: >-
+            CRON expression (e.g. "0 0 * * *"). Supports timezone prefix
+            like "CRON_TZ=America/New_York 0 4 * * *"
+          schema:
+            type: string
+        - name: Upstash-Schedule-Id
+          in: header
+          description: Specify or overwrite a schedule by ID
+          schema:
+            type: string
+        - name: Upstash-Queue-Name
+          in: header
+          description: Route scheduled message to a named queue
+          schema:
+            type: string
+        - name: Upstash-Retries
+          in: header
+          description: Number of retry attempts per scheduled delivery
+          schema:
+            type: integer
+        - name: Upstash-Delay
+          in: header
+          description: Delay each delivery after the scheduled trigger time
+          schema:
+            type: string
+      requestBody:
+        description: Message payload to deliver on each scheduled invocation
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              hello: world
+      responses:
+        '200':
+          description: Schedule created or updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /schedules:
+    get:
+      operationId: listSchedules
+      summary: List all schedules
+      description: Retrieve a list of all schedules configured for this account.
+      tags:
+        - Schedules
+      responses:
+        '200':
+          description: List of schedules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /schedules/{scheduleId}:
+    get:
+      operationId: getSchedule
+      summary: Get a schedule
+      description: Retrieve details of a specific schedule by ID.
+      tags:
+        - Schedules
+      parameters:
+        - name: scheduleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Schedule details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSchedule
+      summary: Delete a schedule
+      description: Permanently delete a schedule by ID.
+      tags:
+        - Schedules
+      parameters:
+        - name: scheduleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Schedule deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /schedules/{scheduleId}/pause:
+    post:
+      operationId: pauseSchedule
+      summary: Pause a schedule
+      description: Pause an active schedule; no messages will be delivered while paused.
+      tags:
+        - Schedules
+      parameters:
+        - name: scheduleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Schedule paused
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /schedules/{scheduleId}/resume:
+    post:
+      operationId: resumeSchedule
+      summary: Resume a paused schedule
+      description: Resume a previously paused schedule.
+      tags:
+        - Schedules
+      parameters:
+        - name: scheduleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Schedule resumed
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /queues/:
+    post:
+      operationId: upsertQueue
+      summary: Create or update a queue
+      description: >-
+        Create a new queue or update an existing queue's configuration such as
+        parallelism. Queues provide FIFO ordered message delivery.
+      tags:
+        - Queues
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueueUpsert'
+            example:
+              queueName: my-queue
+              parallelism: 2
+      responses:
+        '200':
+          description: Queue created or updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /queues/{queueName}:
+    get:
+      operationId: getQueue
+      summary: Get queue details
+      description: Retrieve configuration and status of a named queue.
+      tags:
+        - Queues
+      parameters:
+        - name: queueName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Queue details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Queue'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteQueue
+      summary: Delete a queue
+      description: Delete a queue and all its pending messages.
+      tags:
+        - Queues
+      parameters:
+        - name: queueName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Queue deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /queues/{queueName}/pause:
+    post:
+      operationId: pauseQueue
+      summary: Pause a queue
+      description: Pause delivery for a named queue.
+      tags:
+        - Queues
+      parameters:
+        - name: queueName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Queue paused
+
+  /queues/{queueName}/resume:
+    post:
+      operationId: resumeQueue
+      summary: Resume a paused queue
+      description: Resume delivery for a paused queue.
+      tags:
+        - Queues
+      parameters:
+        - name: queueName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Queue resumed
+
+  /topics/{urlGroupName}/endpoints:
+    post:
+      operationId: upsertUrlGroupEndpoints
+      summary: Create or update URL group endpoints
+      description: >-
+        Create a URL Group or add/update its endpoints. URL groups allow
+        fan-out message delivery to multiple destinations simultaneously.
+      tags:
+        - URL Groups
+      parameters:
+        - name: urlGroupName
+          in: path
+          required: true
+          description: >-
+            Name of the URL Group (alphanumeric, underscore, hyphen, and dot
+            characters only)
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UrlGroupUpsert'
+            example:
+              endpoints:
+                - name: endpoint-one
+                  url: https://example.com/handler1
+                - name: endpoint-two
+                  url: https://example.com/handler2
+      responses:
+        '200':
+          description: URL Group endpoints created or updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /topics/{urlGroupName}:
+    get:
+      operationId: getUrlGroup
+      summary: Get a URL group
+      description: Retrieve configuration and endpoints of a URL Group.
+      tags:
+        - URL Groups
+      parameters:
+        - name: urlGroupName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: URL Group details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UrlGroup'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteUrlGroup
+      summary: Delete a URL group
+      description: Delete a URL Group and all its endpoint configurations.
+      tags:
+        - URL Groups
+      parameters:
+        - name: urlGroupName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: URL Group deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /topics/{urlGroupName}/endpoints/{endpointName}:
+    delete:
+      operationId: deleteUrlGroupEndpoint
+      summary: Remove an endpoint from a URL group
+      description: Remove a specific endpoint from a URL Group.
+      tags:
+        - URL Groups
+      parameters:
+        - name: urlGroupName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: endpointName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Endpoint removed
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /dlq:
+    get:
+      operationId: listDlqMessages
+      summary: List dead letter queue messages
+      description: >-
+        Retrieve messages that have been moved to the dead letter queue after
+        exhausting all delivery retries.
+      tags:
+        - Dead Letter Queue
+      parameters:
+        - name: cursor
+          in: query
+          description: Pagination cursor from previous response
+          schema:
+            type: string
+        - name: count
+          in: query
+          description: Number of messages to return
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: DLQ messages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DlqListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /dlq/{dlqId}:
+    get:
+      operationId: getDlqMessage
+      summary: Get a dead letter queue message
+      description: Retrieve a specific DLQ message by its DLQ ID.
+      tags:
+        - Dead Letter Queue
+      parameters:
+        - name: dlqId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: DLQ message details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DlqMessage'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDlqMessage
+      summary: Delete a dead letter queue message
+      description: Permanently delete a message from the dead letter queue.
+      tags:
+        - Dead Letter Queue
+      parameters:
+        - name: dlqId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: DLQ message deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /dlq/{dlqId}/republish:
+    post:
+      operationId: republishDlqMessage
+      summary: Republish a dead letter queue message
+      description: >-
+        Republish a dead letter queue message for redelivery to its original
+        destination.
+      tags:
+        - Dead Letter Queue
+      parameters:
+        - name: dlqId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Message republished
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /flowControl/{key}:
+    get:
+      operationId: getFlowControlKey
+      summary: Get flow control key details
+      description: >-
+        Retrieve metrics and configuration for a flow control key, including
+        waitlist size, current parallelism and rate counts, and pause/pin status.
+      tags:
+        - Flow Control
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Flow control key details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowControlInfo'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /flowControl/{key}/pause:
+    post:
+      operationId: pauseFlowControlKey
+      summary: Pause delivery for a flow control key
+      description: Pause all message delivery for the specified flow control key.
+      tags:
+        - Flow Control
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Flow control key paused
+
+  /flowControl/{key}/resume:
+    post:
+      operationId: resumeFlowControlKey
+      summary: Resume delivery for a flow control key
+      description: Resume message delivery for a paused flow control key.
+      tags:
+        - Flow Control
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Flow control key resumed
+
+  /flowControl/{key}/pin:
+    post:
+      operationId: pinFlowControlKey
+      summary: Pin flow control key configuration
+      description: >-
+        Lock the parallelism and/or rate configuration of a flow control key
+        to prevent override by incoming message headers.
+      tags:
+        - Flow Control
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: parallelism
+          in: query
+          description: Maximum parallel deliveries to pin
+          schema:
+            type: integer
+        - name: rate
+          in: query
+          description: Rate limit to pin
+          schema:
+            type: integer
+        - name: period
+          in: query
+          description: Rate period in seconds
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Flow control key pinned
+
+  /flowControl/{key}/unpin:
+    post:
+      operationId: unpinFlowControlKey
+      summary: Unpin flow control key configuration
+      description: Allow incoming messages to override the flow control key configuration.
+      tags:
+        - Flow Control
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: parallelism
+          in: query
+          description: Unpin parallelism setting
+          schema:
+            type: boolean
+        - name: rate
+          in: query
+          description: Unpin rate setting
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Flow control key unpinned
+
+  /flowControl/{key}/resetRate:
+    post:
+      operationId: resetFlowControlRate
+      summary: Reset rate count for a flow control key
+      description: Reset the rate count and end the current rate period immediately.
+      tags:
+        - Flow Control
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Rate reset
+
+  /flowControl:
+    get:
+      operationId: listFlowControlKeys
+      summary: List all flow control keys
+      description: Retrieve all active flow control keys for this account.
+      tags:
+        - Flow Control
+      responses:
+        '200':
+          description: List of flow control keys
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlowControlInfo'
+
+  /globalParallelism:
+    get:
+      operationId: getGlobalParallelism
+      summary: Get global parallelism status
+      description: >-
+        Retrieve the global parallelism maximum and current active delivery
+        count across all queues and flow control keys.
+      tags:
+        - Flow Control
+      responses:
+        '200':
+          description: Global parallelism info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalParallelism'
+
+  /logs:
+    get:
+      operationId: getLogs
+      summary: Retrieve message delivery logs
+      description: >-
+        Retrieve logs of message delivery attempts, statuses, and events for
+        debugging and auditing purposes.
+      tags:
+        - Logs
+      parameters:
+        - name: cursor
+          in: query
+          description: Pagination cursor from a previous response
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: Filter expression for logs
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Message delivery logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Bearer token obtained from the Upstash console at
+        https://console.upstash.com/qstash. Alternatively, pass as query
+        parameter `qstash_token`.
+
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    RateLimited:
+      description: Rate limit exceeded
+      headers:
+        Burst-RateLimit-Limit:
+          description: Maximum requests allowed in the current 1-second window
+          schema:
+            type: integer
+        Burst-RateLimit-Remaining:
+          description: Requests remaining in the current window
+          schema:
+            type: integer
+        Burst-RateLimit-Reset:
+          description: Unix timestamp when the rate limit window resets
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+
+    PublishResponse:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Unique identifier for the published message
+          example: msg_2XavMmRcJHJf7HkNtNqjfVf8uQe
+        url:
+          type: string
+          description: Destination URL the message will be delivered to
+          example: https://example.com/webhook
+
+    BatchMessage:
+      type: object
+      required:
+        - destination
+      properties:
+        destination:
+          type: string
+          description: URL, URL Group name, or queue destination
+        url:
+          type: string
+          description: Alternative to destination for direct URL targeting
+        urlGroup:
+          type: string
+          description: URL Group identifier for fan-out delivery
+        queue:
+          type: string
+          description: Queue name for FIFO delivery
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Request headers to include (supports Upstash-* headers)
+        body:
+          type: string
+          description: Message payload as string (JSON, XML, etc.)
+        delay:
+          type: string
+          description: Delay before delivery (e.g. "5s", "1m")
+
+    BatchResponseItem:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Message ID for successfully queued messages
+        url:
+          type: string
+          description: Destination URL
+        error:
+          type: string
+          description: Error message if this particular batch item failed
+
+    ScheduleResponse:
+      type: object
+      properties:
+        scheduleId:
+          type: string
+          description: Unique identifier for the created or updated schedule
+          example: scd_2XavMmRcJHJf7HkNtNqjfVf8uQe
+
+    Schedule:
+      type: object
+      properties:
+        scheduleId:
+          type: string
+          description: Unique schedule identifier
+        cron:
+          type: string
+          description: CRON expression defining the schedule
+        destination:
+          type: string
+          description: Target URL or URL Group
+        createdAt:
+          type: integer
+          description: Unix timestamp when the schedule was created
+        paused:
+          type: boolean
+          description: Whether the schedule is currently paused
+
+    QueueUpsert:
+      type: object
+      required:
+        - queueName
+      properties:
+        queueName:
+          type: string
+          description: Name of the queue (alphanumeric, hyphen, underscore)
+        parallelism:
+          type: integer
+          minimum: 1
+          description: Maximum number of messages to deliver in parallel (default 1)
+
+    Queue:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Queue name
+        parallelism:
+          type: integer
+          description: Configured parallelism level
+        paused:
+          type: boolean
+          description: Whether the queue is currently paused
+        pendingMessages:
+          type: integer
+          description: Number of messages currently pending delivery
+
+    UrlGroupUpsert:
+      type: object
+      required:
+        - endpoints
+      properties:
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/UrlGroupEndpoint'
+
+    UrlGroupEndpoint:
+      type: object
+      required:
+        - url
+      properties:
+        name:
+          type: string
+          description: Identifier for this endpoint within the URL Group
+        url:
+          type: string
+          format: uri
+          description: Target URL for this endpoint
+
+    UrlGroup:
+      type: object
+      properties:
+        name:
+          type: string
+          description: URL Group name
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/UrlGroupEndpoint'
+
+    DlqListResponse:
+      type: object
+      properties:
+        cursor:
+          type: string
+          description: Pagination cursor for the next page
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/DlqMessage'
+
+    DlqMessage:
+      type: object
+      properties:
+        dlqId:
+          type: string
+          description: Dead letter queue message identifier
+        messageId:
+          type: string
+          description: Original message identifier
+        destination:
+          type: string
+          description: Original delivery destination URL
+        createdAt:
+          type: integer
+          description: Unix timestamp when message entered DLQ
+        retried:
+          type: integer
+          description: Number of delivery attempts made
+        maxRetries:
+          type: integer
+          description: Maximum retries configured for the original message
+        body:
+          type: string
+          description: Base64-encoded message body
+        header:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Headers from the original message
+        responseStatus:
+          type: integer
+          description: Last HTTP response status code received from destination
+        responseBody:
+          type: string
+          description: Last HTTP response body received from destination
+
+    FlowControlInfo:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Flow control key name
+        waitlistSize:
+          type: integer
+          description: Number of messages currently waiting due to flow control
+        parallelism:
+          type: integer
+          description: Configured maximum parallelism
+        activeParallelism:
+          type: integer
+          description: Current active parallel deliveries
+        rate:
+          type: integer
+          description: Configured rate limit (messages per period)
+        period:
+          type: integer
+          description: Rate period in seconds
+        currentRate:
+          type: integer
+          description: Current rate count in active period
+        paused:
+          type: boolean
+          description: Whether delivery is paused for this key
+        pinned:
+          type: boolean
+          description: Whether the configuration is pinned
+
+    GlobalParallelism:
+      type: object
+      properties:
+        max:
+          type: integer
+          description: Maximum global parallel deliveries allowed by plan
+        active:
+          type: integer
+          description: Current number of active parallel deliveries globally
+
+    LogsResponse:
+      type: object
+      properties:
+        cursor:
+          type: string
+          description: Pagination cursor for the next page
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntry'
+
+    LogEntry:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Message identifier
+        url:
+          type: string
+          description: Delivery destination URL
+        state:
+          type: string
+          description: Current message state
+          enum: [CREATED, ACTIVE, DELIVERED, ERROR, RETRY, CANCEL_REQUESTED, CANCELLED]
+        createdAt:
+          type: integer
+          description: Unix timestamp of message creation
+        nextDeliveryTime:
+          type: integer
+          description: Unix timestamp of next scheduled delivery attempt
+        notBefore:
+          type: integer
+          description: Unix timestamp before which delivery will not be attempted
+        scheduleId:
+          type: string
+          description: Associated schedule ID if applicable
+        topicName:
+          type: string
+          description: URL Group name if delivered via URL Group
+        responseStatus:
+          type: integer
+          description: HTTP status code from last delivery attempt
+        retried:
+          type: integer
+          description: Number of delivery attempts made so far
+        maxRetries:
+          type: integer
+          description: Maximum configured retry attempts
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message

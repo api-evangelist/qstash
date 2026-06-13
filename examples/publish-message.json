@@ -1,0 +1,27 @@
+{
+  "title": "Publish a Message to a Destination URL",
+  "description": "Example showing how to publish a JSON message to an endpoint with a 5-minute delay and 3 retries",
+  "request": {
+    "method": "POST",
+    "url": "https://qstash.upstash.io/v2/publish/https://example.com/webhook",
+    "headers": {
+      "Authorization": "Bearer <QSTASH_TOKEN>",
+      "Content-Type": "application/json",
+      "Upstash-Delay": "5m",
+      "Upstash-Retries": "3",
+      "Upstash-Callback": "https://example.com/callback"
+    },
+    "body": {
+      "event": "user.created",
+      "userId": "usr_abc123",
+      "timestamp": 1749686400
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "messageId": "msg_2XavMmRcJHJf7HkNtNqjfVf8uQe",
+      "url": "https://example.com/webhook"
+    }
+  }
+}

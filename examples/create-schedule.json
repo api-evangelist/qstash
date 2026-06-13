@@ -1,0 +1,24 @@
+{
+  "title": "Create a CRON Schedule",
+  "description": "Example showing how to create a schedule that fires every weekday at 9am UTC",
+  "request": {
+    "method": "POST",
+    "url": "https://qstash.upstash.io/v2/schedules/https://example.com/daily-job",
+    "headers": {
+      "Authorization": "Bearer <QSTASH_TOKEN>",
+      "Content-Type": "application/json",
+      "Upstash-Cron": "0 9 * * 1-5",
+      "Upstash-Retries": "2"
+    },
+    "body": {
+      "job": "daily-report",
+      "type": "summary"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "scheduleId": "scd_2XavMmRcJHJf7HkNtNqjfVf8uQe"
+    }
+  }
+}

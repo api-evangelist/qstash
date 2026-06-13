@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/qstash/main/json-schema/qstash-schedule.json",
+  "title": "QStash Schedule",
+  "description": "A CRON-based schedule that causes QStash to deliver messages on a recurring basis",
+  "type": "object",
+  "properties": {
+    "scheduleId": {
+      "type": "string",
+      "description": "Unique identifier for the schedule",
+      "example": "scd_2XavMmRcJHJf7HkNtNqjfVf8uQe"
+    },
+    "cron": {
+      "type": "string",
+      "description": "CRON expression defining the schedule (e.g. '0 0 * * *'). Supports CRON_TZ prefix for timezone.",
+      "example": "0 9 * * 1-5"
+    },
+    "destination": {
+      "type": "string",
+      "description": "Target URL, URL Group name, or queue destination"
+    },
+    "body": {
+      "type": "string",
+      "description": "Message body to deliver on each invocation"
+    },
+    "header": {
+      "type": "object",
+      "description": "HTTP headers to include in each delivery",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "retries": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Number of retry attempts per scheduled delivery"
+    },
+    "createdAt": {
+      "type": "integer",
+      "description": "Unix timestamp when the schedule was created"
+    },
+    "paused": {
+      "type": "boolean",
+      "description": "Whether the schedule is currently paused",
+      "default": false
+    }
+  },
+  "required": ["scheduleId", "cron"],
+  "additionalProperties": false
+}

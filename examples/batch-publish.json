@@ -1,0 +1,54 @@
+{
+  "title": "Batch Publish Multiple Messages",
+  "description": "Example showing how to publish multiple messages to different destinations in a single API call",
+  "request": {
+    "method": "POST",
+    "url": "https://qstash.upstash.io/v2/batch",
+    "headers": {
+      "Authorization": "Bearer <QSTASH_TOKEN>",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "destination": "https://example.com/handler1",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"event\": \"order.created\", \"orderId\": \"ord_001\"}"
+      },
+      {
+        "destination": "https://example.com/handler2",
+        "headers": {
+          "Content-Type": "application/json",
+          "Upstash-Delay": "1m"
+        },
+        "body": "{\"event\": \"order.notification\", \"orderId\": \"ord_001\"}"
+      },
+      {
+        "queue": "email-queue",
+        "destination": "https://example.com/send-email",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"template\": \"order-confirmation\", \"orderId\": \"ord_001\"}"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": [
+      {
+        "messageId": "msg_abc001",
+        "url": "https://example.com/handler1"
+      },
+      {
+        "messageId": "msg_abc002",
+        "url": "https://example.com/handler2"
+      },
+      {
+        "messageId": "msg_abc003",
+        "url": "https://example.com/send-email"
+      }
+    ]
+  }
+}
