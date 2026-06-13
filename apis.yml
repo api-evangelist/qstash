@@ -1,0 +1,74 @@
+aid: qstash
+name: QStash
+description: >-
+  QStash is a serverless message queue and task scheduling REST API from Upstash
+  that delivers HTTP messages to endpoints reliably without requiring any
+  long-lived connections or infrastructure management. Built entirely on
+  stateless HTTP requests, it is designed for serverless and edge runtimes where
+  traditional message brokers are impractical. QStash supports automatic retries,
+  CRON-based scheduling up to one year in advance, URL group broadcasting for
+  fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.
+  Developers simply POST a message with a destination URL and QStash handles
+  guaranteed delivery with configurable retry logic and flow control.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/qstash/refs/heads/main/apis.yml
+created: '2026-06-12'
+modified: '2026-06-12'
+specificationVersion: '0.19'
+tags:
+  - Message Queue
+  - Task Scheduling
+  - Serverless
+  - HTTP Messaging
+  - Background Jobs
+  - Webhooks
+  - Dead Letter Queue
+  - CRON
+  - Upstash
+apis:
+  - aid: qstash:qstash-api
+    name: QStash API
+    description: >-
+      The QStash REST API provides HTTP-based endpoints for publishing messages
+      to destination URLs, managing queues, scheduling tasks with CRON
+      expressions, configuring URL groups for fan-out delivery, retrieving
+      message logs, and managing dead-letter queues. Authentication uses Bearer
+      tokens obtained from the Upstash console.
+    humanURL: https://upstash.com/docs/qstash/overall/getstarted
+    baseURL: https://qstash.upstash.io/v2
+    tags:
+      - Message Queue
+      - Task Scheduling
+      - Serverless
+    properties:
+      - type: Documentation
+        url: https://upstash.com/docs/qstash/overall/getstarted
+      - type: OpenAPI
+        url: https://upstash.com/docs/llms.txt
+common:
+  - type: Website
+    url: https://upstash.com/qstash
+  - type: Documentation
+    url: https://upstash.com/docs/qstash/overall/getstarted
+  - type: GitHubOrg
+    url: https://github.com/upstash
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/upstash
+  - type: Blog
+    url: https://upstash.com/blog
+  - type: Pricing
+    url: https://upstash.com/pricing/qstash
+  - type: StatusPage
+    url: https://status.upstash.com/
+  - type: X
+    url: https://x.com/upstash
+  - type: Plans
+    url: plans/qstash-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/qstash-rate-limits.yml
+  - type: FinOps
+    url: finops/qstash-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

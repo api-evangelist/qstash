@@ -1,0 +1,114 @@
+specificationVersion: '0.1'
+id: qstash-rate-limits
+name: QStash Rate Limits
+description: >-
+  Rate limits for the QStash API. Operational message publishing APIs have no
+  requests-per-second limit. Management and listing endpoints enforce burst
+  rate limits with a 1-second window. Daily message quotas are enforced per
+  plan. Flow-control features allow users to define their own per-key rate
+  limits and parallelism caps for message delivery.
+url: https://upstash.com/docs/qstash/api/api-ratelimiting
+limits:
+  - name: Operational API RPS Limit
+    description: >-
+      The publish, enqueue, notify, wait, trigger, and batch endpoints have
+      no requests-per-second limit applied by Upstash infrastructure.
+    scope: global
+    endpoints:
+      - /v2/publish/{destination}
+      - /v2/enqueue/{queueName}/{destination}
+      - /v2/batch
+      - /v2/notify
+      - /v2/wait
+    limit: unlimited
+    unit: requests/second
+  - name: Management API Burst Limit
+    description: >-
+      Endpoints for logs, queues, schedules, flow-controls, and other
+      management operations enforce a short-term burst limit within a
+      1-second window to prevent rapid bursts of requests.
+    scope: per-account
+    endpoints:
+      - /v2/logs
+      - /v2/queues
+      - /v2/schedules
+      - /v2/flow-control
+    window: 1
+    windowUnit: second
+    headers:
+      - name: Burst-RateLimit-Limit
+        description: Maximum number of requests allowed in the burst window
+      - name: Burst-RateLimit-Remaining
+        description: Number of requests remaining before hitting the burst limit
+      - name: Burst-RateLimit-Reset
+        description: Unix timestamp indicating when the burst limit resets
+    errorCodes:
+      - code: 429
+        type: QstashRatelimitError
+        description: Returned when burst rate limit is exceeded
+  - name: Daily Message Limit - Free Plan
+    description: Maximum number of messages that can be published per day on the Free plan.
+    scope: per-account
+    plan: Free
+    limit: 1000
+    unit: messages/day
+    errorCodes:
+      - code: 429
+        type: QstashDailyRatelimitError
+        description: Returned when daily message quota is exceeded
+  - name: Daily Message Limit - Fixed 1M Plan
+    description: Maximum number of messages that can be published per day on the Fixed 1M plan.
+    scope: per-account
+    plan: Fixed 1M
+    limit: 1000000
+    unit: messages/day
+  - name: Daily Message Limit - Fixed 10M Plan
+    description: Maximum number of messages that can be published per day on the Fixed 10M plan.
+    scope: per-account
+    plan: Fixed 10M
+    limit: 10000000
+    unit: messages/day
+  - name: Flow Control - User-Defined Rate Limit
+    description: >-
+      Users can define their own per-key rate limits for message delivery
+      using QStash Flow Control. This specifies the maximum number of
+      delivery calls per second for a given FlowControl key.
+    scope: per-flow-control-key
+    configurable: true
+    unit: calls/second
+    notes: >-
+      Multiple messages sharing the same FlowControl key contribute to the
+      same rate count. This is a user-configured limit, not an
+      Upstash-enforced infrastructure cap.
+  - name: Flow Control - User-Defined Parallelism
+    description: >-
+      Users can define the maximum number of concurrent in-flight deliveries
+      for a given FlowControl key. At no time will there be more than the
+      specified number of active calls for that key.
+    scope: per-flow-control-key
+    configurable: true
+    unit: concurrent executions
+    notes: >-
+      Parallelism limits are user-defined and not tied to plan tier.
+      They allow workload shaping without infrastructure-level restrictions.
+  - name: Max Message Size - Free Plan
+    description: Maximum size of a single QStash message payload on the Free plan.
+    scope: per-message
+    plan: Free
+    limit: 1
+    unit: MB
+    errorCodes:
+      - code: 412
+        description: Returned when message size limit is exceeded
+  - name: Max Message Size - Pay As You Go Plan
+    description: Maximum size of a single QStash message payload on the Pay As You Go plan.
+    scope: per-message
+    plan: Pay As You Go
+    limit: 10
+    unit: MB
+  - name: Max Message Size - Fixed Plans
+    description: Maximum size of a single QStash message payload on Fixed 1M and Fixed 10M plans.
+    scope: per-message
+    plan: Fixed 1M, Fixed 10M
+    limit: 50
+    unit: MB

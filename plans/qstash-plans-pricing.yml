@@ -1,0 +1,187 @@
+specificationVersion: '0.1'
+id: qstash-plans-pricing
+name: QStash Plans and Pricing
+description: >-
+  Pricing plans for QStash, the serverless message queue and task scheduling
+  API from Upstash. Plans scale from a free tier for development and testing
+  to enterprise tiers for high-throughput production workloads.
+url: https://upstash.com/pricing/qstash
+plans:
+  - name: Free
+    description: >-
+      Free tier for development, testing, and low-volume applications. Includes
+      community support only.
+    url: https://upstash.com/pricing/qstash
+    price: 0
+    priceCurrency: USD
+    billingCycle: monthly
+    limits:
+      - name: Messages Per Day
+        value: 1000
+        unit: messages
+      - name: Bandwidth
+        value: 50
+        unit: GB/month
+      - name: Max Message Size
+        value: 1
+        unit: MB
+      - name: URL Groups
+        value: 1
+        unit: groups
+      - name: Active Schedules
+        value: 10
+        unit: schedules
+    features:
+      - Automatic retries
+      - Dead-letter queues
+      - CRON scheduling
+      - Community support
+  - name: Pay As You Go
+    description: >-
+      Usage-based pricing for variable workloads. Pay only for what you use
+      with no upfront commitment. Retries and failed deliveries each count as
+      additional billed messages.
+    url: https://upstash.com/pricing/qstash
+    price: 1.00
+    priceCurrency: USD
+    priceUnit: per 100K messages
+    billingCycle: monthly
+    limits:
+      - name: Messages Per Day
+        value: unlimited
+        unit: messages
+      - name: Bandwidth Free Tier
+        value: 50
+        unit: GB/month
+      - name: Bandwidth Overage
+        value: 0.05
+        unit: USD/GB
+      - name: Max Message Size
+        value: 10
+        unit: MB
+      - name: URL Groups
+        value: 100
+        unit: groups
+      - name: Active Schedules Free
+        value: 1000
+        unit: schedules
+      - name: Schedule Overage
+        value: 0.01
+        unit: USD/schedule
+      - name: Max Delay
+        value: 1
+        unit: year
+    features:
+      - Unlimited daily messages
+      - Automatic retries
+      - Dead-letter queues
+      - CRON scheduling
+      - URL group fan-out
+      - FIFO queues
+      - Message deduplication
+      - Flow control (rate limit + parallelism)
+      - Email support
+  - name: Fixed 1M
+    description: >-
+      Fixed monthly plan for predictable high-volume workloads with up to
+      1 million messages per day and expanded resource limits.
+    url: https://upstash.com/pricing/qstash
+    price: 180
+    priceCurrency: USD
+    billingCycle: monthly
+    limits:
+      - name: Messages Per Day
+        value: 1000000
+        unit: messages
+      - name: Bandwidth
+        value: 1000
+        unit: GB/month
+      - name: Max Message Size
+        value: 50
+        unit: MB
+      - name: URL Groups
+        value: 1000
+        unit: groups
+      - name: Active Schedules
+        value: 10000
+        unit: schedules
+      - name: Max Delay
+        value: unlimited
+        unit: ''
+    features:
+      - Unlimited max delay
+      - Automatic retries
+      - Dead-letter queues
+      - CRON scheduling
+      - URL group fan-out
+      - FIFO queues
+      - Message deduplication
+      - Flow control
+      - Priority support
+  - name: Fixed 10M
+    description: >-
+      Fixed monthly plan for very high-throughput production applications with
+      up to 10 million messages per day.
+    url: https://upstash.com/pricing/qstash
+    price: 420
+    priceCurrency: USD
+    billingCycle: monthly
+    limits:
+      - name: Messages Per Day
+        value: 10000000
+        unit: messages
+      - name: Bandwidth
+        value: 5000
+        unit: GB/month
+      - name: Max Message Size
+        value: 50
+        unit: MB
+      - name: URL Groups
+        value: 2000
+        unit: groups
+      - name: Active Schedules
+        value: 50000
+        unit: schedules
+      - name: Max Delay
+        value: unlimited
+        unit: ''
+    features:
+      - Unlimited max delay
+      - Automatic retries
+      - Dead-letter queues
+      - CRON scheduling
+      - URL group fan-out
+      - FIFO queues
+      - Message deduplication
+      - Flow control
+      - Priority support
+  - name: Enterprise
+    description: >-
+      Custom enterprise plan for applications requiring 100M+ messages per day,
+      custom message sizes, unlimited bandwidth, and dedicated support.
+    url: https://upstash.com/pricing/qstash
+    price: custom
+    priceCurrency: USD
+    billingCycle: monthly
+    limits:
+      - name: Messages Per Day
+        value: 100000000
+        unit: messages (minimum)
+      - name: Bandwidth
+        value: unlimited
+        unit: ''
+      - name: Max Message Size
+        value: custom
+        unit: ''
+    features:
+      - Custom message size limits
+      - Unlimited bandwidth
+      - Automatic retries
+      - Dead-letter queues
+      - CRON scheduling
+      - URL group fan-out
+      - FIFO queues
+      - Message deduplication
+      - Flow control
+      - Dedicated support
+      - SLA guarantees

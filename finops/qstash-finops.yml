@@ -1,0 +1,130 @@
+specificationVersion: '1.0'
+id: qstash-finops
+name: QStash FinOps
+description: >-
+  FinOps Framework FOCUS-aligned cost and usage model for QStash, the serverless
+  message queue and task scheduling API from Upstash. Costs are driven primarily
+  by message volume (each delivery attempt counts as one billed message),
+  bandwidth consumption, active schedules, and URL group usage.
+url: https://upstash.com/pricing/qstash
+provider: Upstash
+service: QStash
+costDrivers:
+  - name: Message Volume
+    description: >-
+      The primary cost driver for QStash. Each delivery attempt to one endpoint
+      counts as one billed message. This includes initial delivery attempts,
+      automatic retries, and failed deliveries that are retried. Fan-out
+      delivery to URL groups bills one message per endpoint in the group.
+    unitCost: 1.00
+    unitCostCurrency: USD
+    unitCostPer: 100000 messages
+    plans:
+      - name: Free
+        included: 1000 messages/day
+        overageCost: N/A - upgrade required
+      - name: Pay As You Go
+        included: 0
+        unitCost: 1.00
+        unitCostCurrency: USD
+        unitCostPer: 100000 messages
+      - name: Fixed 1M
+        included: 1000000 messages/day
+        overageCost: N/A - fixed plan
+      - name: Fixed 10M
+        included: 10000000 messages/day
+        overageCost: N/A - fixed plan
+  - name: Bandwidth
+    description: >-
+      Data transfer costs for message payloads transmitted through QStash.
+      Free tiers apply per plan; overages are charged on Pay As You Go.
+    plans:
+      - name: Free
+        included: 50 GB/month
+        overageCost: N/A - upgrade required
+      - name: Pay As You Go
+        included: 50 GB/month
+        unitCost: 0.05
+        unitCostCurrency: USD
+        unitCostPer: GB
+      - name: Fixed 1M
+        included: 1000 GB/month
+        overageCost: N/A - fixed plan
+      - name: Fixed 10M
+        included: 5000 GB/month
+        overageCost: N/A - fixed plan
+  - name: Active Schedules
+    description: >-
+      CRON-based scheduled message tasks. Plans include a base number of
+      active schedules; additional schedules are charged on Pay As You Go.
+    plans:
+      - name: Free
+        included: 10 schedules
+        overageCost: N/A - upgrade required
+      - name: Pay As You Go
+        included: 1000 schedules
+        unitCost: 0.01
+        unitCostCurrency: USD
+        unitCostPer: additional schedule/month
+      - name: Fixed 1M
+        included: 10000 schedules
+        overageCost: N/A - fixed plan
+      - name: Fixed 10M
+        included: 50000 schedules
+        overageCost: N/A - fixed plan
+  - name: URL Groups
+    description: >-
+      Named groups of endpoints for fan-out message delivery. Each message
+      published to a URL group is billed once per endpoint in the group.
+    plans:
+      - name: Free
+        included: 1 URL group
+      - name: Pay As You Go
+        included: 100 URL groups
+      - name: Fixed 1M
+        included: 1000 URL groups
+      - name: Fixed 10M
+        included: 2000 URL groups
+costOptimizationStrategies:
+  - name: Use Fixed Plans for Predictable High Volume
+    description: >-
+      For applications consistently processing millions of messages per day,
+      Fixed plans at $180/month (1M/day) or $420/month (10M/day) offer
+      significant cost savings over Pay As You Go pricing.
+    applicablePlans:
+      - Fixed 1M
+      - Fixed 10M
+  - name: Minimize Retry Failures
+    description: >-
+      Every retry attempt counts as an additional billed message. Ensuring
+      destination endpoints are reliable and respond quickly reduces retry
+      costs, especially important on Pay As You Go pricing.
+    costImpact: high
+  - name: Right-Size Message Payloads
+    description: >-
+      Bandwidth overages are charged at $0.05/GB on Pay As You Go. Keeping
+      message payloads compact reduces both bandwidth costs and the risk of
+      hitting message size limits.
+    costImpact: medium
+  - name: Monitor Dead-Letter Queues
+    description: >-
+      Messages that exhaust all retry attempts land in the dead-letter queue.
+      Each retry attempt is billed. Monitoring DLQ volume helps identify
+      problematic endpoints driving excess retry costs.
+    costImpact: medium
+  - name: Batch Publishing
+    description: >-
+      Use the /v2/batch endpoint to publish multiple messages in a single
+      HTTP call, reducing API overhead while still billing per message delivered.
+    costImpact: low
+focusAlignment:
+  chargeType: Usage
+  serviceCategory: Integration
+  serviceName: QStash
+  serviceSubcategory: Message Queue
+  billingAccountId: upstash-account-id
+  pricingUnit: message
+  usageUnit: message
+  region: global
+  providerName: Upstash
+  invoiceIssuer: Upstash
