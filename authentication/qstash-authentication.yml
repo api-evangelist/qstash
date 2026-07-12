@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/qstash-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token obtained from the Upstash console at https://console.upstash.com/qstash.
+    Alternatively, pass as query parameter `qstash_token`.
+  sources:
+  - openapi/qstash-api-openapi.yml
