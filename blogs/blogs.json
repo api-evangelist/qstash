@@ -5,14 +5,17 @@
       "source": "https://upstash.com/blog/feed.xml",
       "feed_url": "https://upstash.com/blog/feed.xml",
       "title": "",
-      "saved": 9,
+      "saved": 0,
       "method": "feed"
     },
     {
       "source": "https://www.linkedin.com/company/upstash",
-      "error": "HTTPError"
+      "feed_url": "https://www.linkedin.com/company/upstash",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 17,
-  "fetched": "2026-06-27T12:03:07Z"
+  "post_count": 36,
+  "fetched": "2026-07-11T11:50:51Z"
 }
