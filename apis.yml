@@ -47,6 +47,8 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/qstash/refs/heads/main/openapi/qstash-api-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/qstash-agentic-access.yml
   - type: DomainSecurity
     url: security/qstash-domain-security.yml
   - type: Authentication
