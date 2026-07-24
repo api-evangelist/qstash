@@ -1,0 +1,239 @@
+openapi: 3.0.3
+info:
+  title: QStash Dead Letter Queue Flow Control API
+  description: QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.
+  version: '2.0'
+  contact:
+    name: Upstash Support
+    url: https://upstash.com/docs/qstash/overall/getstarted
+  license:
+    name: Upstash Terms of Service
+    url: https://upstash.com/trust/terms.pdf
+servers:
+- url: https://qstash.upstash.io/v2
+  description: QStash production API
+security:
+- BearerAuth: []
+tags:
+- name: Flow Control
+  description: Manage flow control keys for rate and parallelism limiting
+paths:
+  /flowControl/{key}:
+    get:
+      operationId: getFlowControlKey
+      summary: Get flow control key details
+      description: Retrieve metrics and configuration for a flow control key, including waitlist size, current parallelism and rate counts, and pause/pin status.
+      tags:
+      - Flow Control
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flow control key details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowControlInfo'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /flowControl/{key}/pause:
+    post:
+      operationId: pauseFlowControlKey
+      summary: Pause delivery for a flow control key
+      description: Pause all message delivery for the specified flow control key.
+      tags:
+      - Flow Control
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flow control key paused
+  /flowControl/{key}/resume:
+    post:
+      operationId: resumeFlowControlKey
+      summary: Resume delivery for a flow control key
+      description: Resume message delivery for a paused flow control key.
+      tags:
+      - Flow Control
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flow control key resumed
+  /flowControl/{key}/pin:
+    post:
+      operationId: pinFlowControlKey
+      summary: Pin flow control key configuration
+      description: Lock the parallelism and/or rate configuration of a flow control key to prevent override by incoming message headers.
+      tags:
+      - Flow Control
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: parallelism
+        in: query
+        description: Maximum parallel deliveries to pin
+        schema:
+          type: integer
+      - name: rate
+        in: query
+        description: Rate limit to pin
+        schema:
+          type: integer
+      - name: period
+        in: query
+        description: Rate period in seconds
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Flow control key pinned
+  /flowControl/{key}/unpin:
+    post:
+      operationId: unpinFlowControlKey
+      summary: Unpin flow control key configuration
+      description: Allow incoming messages to override the flow control key configuration.
+      tags:
+      - Flow Control
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: parallelism
+        in: query
+        description: Unpin parallelism setting
+        schema:
+          type: boolean
+      - name: rate
+        in: query
+        description: Unpin rate setting
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Flow control key unpinned
+  /flowControl/{key}/resetRate:
+    post:
+      operationId: resetFlowControlRate
+      summary: Reset rate count for a flow control key
+      description: Reset the rate count and end the current rate period immediately.
+      tags:
+      - Flow Control
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Rate reset
+  /flowControl:
+    get:
+      operationId: listFlowControlKeys
+      summary: List all flow control keys
+      description: Retrieve all active flow control keys for this account.
+      tags:
+      - Flow Control
+      responses:
+        '200':
+          description: List of flow control keys
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FlowControlInfo'
+  /globalParallelism:
+    get:
+      operationId: getGlobalParallelism
+      summary: Get global parallelism status
+      description: Retrieve the global parallelism maximum and current active delivery count across all queues and flow control keys.
+      tags:
+      - Flow Control
+      responses:
+        '200':
+          description: Global parallelism info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalParallelism'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    GlobalParallelism:
+      type: object
+      properties:
+        max:
+          type: integer
+          description: Maximum global parallel deliveries allowed by plan
+        active:
+          type: integer
+          description: Current number of active parallel deliveries globally
+    FlowControlInfo:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Flow control key name
+        waitlistSize:
+          type: integer
+          description: Number of messages currently waiting due to flow control
+        parallelism:
+          type: integer
+          description: Configured maximum parallelism
+        activeParallelism:
+          type: integer
+          description: Current active parallel deliveries
+        rate:
+          type: integer
+          description: Configured rate limit (messages per period)
+        period:
+          type: integer
+          description: Rate period in seconds
+        currentRate:
+          type: integer
+          description: Current rate count in active period
+        paused:
+          type: boolean
+          description: Whether delivery is paused for this key
+        pinned:
+          type: boolean
+          description: Whether the configuration is pinned
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from the Upstash console at https://console.upstash.com/qstash. Alternatively, pass as query parameter `qstash_token`.
+externalDocs:
+  description: QStash Documentation
+  url: https://upstash.com/docs/qstash/overall/getstarted

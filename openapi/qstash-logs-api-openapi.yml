@@ -1,0 +1,124 @@
+openapi: 3.0.3
+info:
+  title: QStash Dead Letter Queue Logs API
+  description: QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.
+  version: '2.0'
+  contact:
+    name: Upstash Support
+    url: https://upstash.com/docs/qstash/overall/getstarted
+  license:
+    name: Upstash Terms of Service
+    url: https://upstash.com/trust/terms.pdf
+servers:
+- url: https://qstash.upstash.io/v2
+  description: QStash production API
+security:
+- BearerAuth: []
+tags:
+- name: Logs
+  description: Retrieve message delivery logs
+paths:
+  /logs:
+    get:
+      operationId: getLogs
+      summary: Retrieve message delivery logs
+      description: Retrieve logs of message delivery attempts, statuses, and events for debugging and auditing purposes.
+      tags:
+      - Logs
+      parameters:
+      - name: cursor
+        in: query
+        description: Pagination cursor from a previous response
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Filter expression for logs
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Message delivery logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    LogsResponse:
+      type: object
+      properties:
+        cursor:
+          type: string
+          description: Pagination cursor for the next page
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntry'
+    LogEntry:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Message identifier
+        url:
+          type: string
+          description: Delivery destination URL
+        state:
+          type: string
+          description: Current message state
+          enum:
+          - CREATED
+          - ACTIVE
+          - DELIVERED
+          - ERROR
+          - RETRY
+          - CANCEL_REQUESTED
+          - CANCELLED
+        createdAt:
+          type: integer
+          description: Unix timestamp of message creation
+        nextDeliveryTime:
+          type: integer
+          description: Unix timestamp of next scheduled delivery attempt
+        notBefore:
+          type: integer
+          description: Unix timestamp before which delivery will not be attempted
+        scheduleId:
+          type: string
+          description: Associated schedule ID if applicable
+        topicName:
+          type: string
+          description: URL Group name if delivered via URL Group
+        responseStatus:
+          type: integer
+          description: HTTP status code from last delivery attempt
+        retried:
+          type: integer
+          description: Number of delivery attempts made so far
+        maxRetries:
+          type: integer
+          description: Maximum configured retry attempts
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from the Upstash console at https://console.upstash.com/qstash. Alternatively, pass as query parameter `qstash_token`.
+externalDocs:
+  description: QStash Documentation
+  url: https://upstash.com/docs/qstash/overall/getstarted

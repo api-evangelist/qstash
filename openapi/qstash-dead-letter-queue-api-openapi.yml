@@ -1,0 +1,195 @@
+openapi: 3.0.3
+info:
+  title: QStash Dead Letter Queue API
+  description: QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.
+  version: '2.0'
+  contact:
+    name: Upstash Support
+    url: https://upstash.com/docs/qstash/overall/getstarted
+  license:
+    name: Upstash Terms of Service
+    url: https://upstash.com/trust/terms.pdf
+servers:
+- url: https://qstash.upstash.io/v2
+  description: QStash production API
+security:
+- BearerAuth: []
+tags:
+- name: Dead Letter Queue
+  description: Manage dead letter queue messages
+paths:
+  /dlq:
+    get:
+      operationId: listDlqMessages
+      summary: List dead letter queue messages
+      description: Retrieve messages that have been moved to the dead letter queue after exhausting all delivery retries.
+      tags:
+      - Dead Letter Queue
+      parameters:
+      - name: cursor
+        in: query
+        description: Pagination cursor from previous response
+        schema:
+          type: string
+      - name: count
+        in: query
+        description: Number of messages to return
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: DLQ messages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DlqListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /dlq/{dlqId}:
+    get:
+      operationId: getDlqMessage
+      summary: Get a dead letter queue message
+      description: Retrieve a specific DLQ message by its DLQ ID.
+      tags:
+      - Dead Letter Queue
+      parameters:
+      - name: dlqId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: DLQ message details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DlqMessage'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteDlqMessage
+      summary: Delete a dead letter queue message
+      description: Permanently delete a message from the dead letter queue.
+      tags:
+      - Dead Letter Queue
+      parameters:
+      - name: dlqId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: DLQ message deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /dlq/{dlqId}/republish:
+    post:
+      operationId: republishDlqMessage
+      summary: Republish a dead letter queue message
+      description: Republish a dead letter queue message for redelivery to its original destination.
+      tags:
+      - Dead Letter Queue
+      parameters:
+      - name: dlqId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Message republished
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    DlqListResponse:
+      type: object
+      properties:
+        cursor:
+          type: string
+          description: Pagination cursor for the next page
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/DlqMessage'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    PublishResponse:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Unique identifier for the published message
+          example: msg_2XavMmRcJHJf7HkNtNqjfVf8uQe
+        url:
+          type: string
+          description: Destination URL the message will be delivered to
+          example: https://example.com/webhook
+    DlqMessage:
+      type: object
+      properties:
+        dlqId:
+          type: string
+          description: Dead letter queue message identifier
+        messageId:
+          type: string
+          description: Original message identifier
+        destination:
+          type: string
+          description: Original delivery destination URL
+        createdAt:
+          type: integer
+          description: Unix timestamp when message entered DLQ
+        retried:
+          type: integer
+          description: Number of delivery attempts made
+        maxRetries:
+          type: integer
+          description: Maximum retries configured for the original message
+        body:
+          type: string
+          description: Base64-encoded message body
+        header:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Headers from the original message
+        responseStatus:
+          type: integer
+          description: Last HTTP response status code received from destination
+        responseBody:
+          type: string
+          description: Last HTTP response body received from destination
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from the Upstash console at https://console.upstash.com/qstash. Alternatively, pass as query parameter `qstash_token`.
+externalDocs:
+  description: QStash Documentation
+  url: https://upstash.com/docs/qstash/overall/getstarted
