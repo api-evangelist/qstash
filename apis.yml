@@ -11,7 +11,20 @@ description: >-
   Developers simply POST a message with a destination URL and QStash handles
   guaranteed delivery with configurable retry logic and flow control.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/qstash.png
 url: https://raw.githubusercontent.com/api-evangelist/qstash/refs/heads/main/apis.yml
 created: '2026-06-12'
 modified: '2026-06-12'
@@ -27,25 +40,90 @@ tags:
   - CRON
   - Upstash
 apis:
-  - aid: qstash:qstash-api
-    name: QStash API
-    description: >-
-      The QStash REST API provides HTTP-based endpoints for publishing messages
-      to destination URLs, managing queues, scheduling tasks with CRON
-      expressions, configuring URL groups for fan-out delivery, retrieving
-      message logs, and managing dead-letter queues. Authentication uses Bearer
-      tokens obtained from the Upstash console.
-    humanURL: https://upstash.com/docs/qstash/overall/getstarted
-    baseURL: https://qstash.upstash.io/v2
-    tags:
-      - Message Queue
-      - Task Scheduling
-      - Serverless
-    properties:
-      - type: Documentation
-        url: https://upstash.com/docs/qstash/overall/getstarted
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/qstash/refs/heads/main/openapi/qstash-api-openapi.yml
+- aid: qstash:qstash-dead-letter-queue-api
+  name: QStash Dead Letter Queue API
+  description: Manage dead letter queue messages
+  humanURL: https://upstash.com/docs/qstash/overall/getstarted
+  baseURL: https://qstash.upstash.io/v2
+  tags:
+  - Dead Letter Queue
+  properties:
+  - type: OpenAPI
+    url: openapi/qstash-dead-letter-queue-api-openapi.yml
+  - type: Documentation
+    url: https://upstash.com/docs/qstash/overall/getstarted
+- aid: qstash:qstash-flow-control-api
+  name: QStash Flow Control API
+  description: Manage flow control keys for rate and parallelism limiting
+  humanURL: https://upstash.com/docs/qstash/overall/getstarted
+  baseURL: https://qstash.upstash.io/v2
+  tags:
+  - Flow Control
+  properties:
+  - type: OpenAPI
+    url: openapi/qstash-flow-control-api-openapi.yml
+  - type: Documentation
+    url: https://upstash.com/docs/qstash/overall/getstarted
+- aid: qstash:qstash-logs-api
+  name: QStash Logs API
+  description: Retrieve message delivery logs
+  humanURL: https://upstash.com/docs/qstash/overall/getstarted
+  baseURL: https://qstash.upstash.io/v2
+  tags:
+  - Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/qstash-logs-api-openapi.yml
+  - type: Documentation
+    url: https://upstash.com/docs/qstash/overall/getstarted
+- aid: qstash:qstash-messages-api
+  name: QStash Messages API
+  description: Publish and manage messages
+  humanURL: https://upstash.com/docs/qstash/overall/getstarted
+  baseURL: https://qstash.upstash.io/v2
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/qstash-messages-api-openapi.yml
+  - type: Documentation
+    url: https://upstash.com/docs/qstash/overall/getstarted
+- aid: qstash:qstash-queues-api
+  name: QStash Queues API
+  description: Manage FIFO queues
+  humanURL: https://upstash.com/docs/qstash/overall/getstarted
+  baseURL: https://qstash.upstash.io/v2
+  tags:
+  - Queues
+  properties:
+  - type: OpenAPI
+    url: openapi/qstash-queues-api-openapi.yml
+  - type: Documentation
+    url: https://upstash.com/docs/qstash/overall/getstarted
+- aid: qstash:qstash-schedules-api
+  name: QStash Schedules API
+  description: Create and manage CRON-based scheduled messages
+  humanURL: https://upstash.com/docs/qstash/overall/getstarted
+  baseURL: https://qstash.upstash.io/v2
+  tags:
+  - Schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/qstash-schedules-api-openapi.yml
+  - type: Documentation
+    url: https://upstash.com/docs/qstash/overall/getstarted
+- aid: qstash:qstash-url-groups-api
+  name: QStash URL Groups API
+  description: Manage URL groups for fan-out delivery
+  humanURL: https://upstash.com/docs/qstash/overall/getstarted
+  baseURL: https://qstash.upstash.io/v2
+  tags:
+  - URL Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/qstash-url-groups-api-openapi.yml
+  - type: Documentation
+    url: https://upstash.com/docs/qstash/overall/getstarted
 common:
   - type: AgenticAccess
     url: agentic-access/qstash-agentic-access.yml
