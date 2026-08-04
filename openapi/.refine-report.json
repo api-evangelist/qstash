@@ -1,0 +1,26 @@
+{
+  "provider": "qstash",
+  "sources": [
+    "qstash-dead-letter-queue-api-openapi.yml",
+    "qstash-flow-control-api-openapi.yml",
+    "qstash-logs-api-openapi.yml",
+    "qstash-messages-api-openapi.yml",
+    "qstash-queues-api-openapi.yml",
+    "qstash-schedules-api-openapi.yml",
+    "qstash-url-groups-api-openapi.yml"
+  ],
+  "outputs": [
+    "qstash-dead-letter-queue-api-openapi.yml",
+    "qstash-flow-control-api-openapi.yml",
+    "qstash-logs-api-openapi.yml",
+    "qstash-messages-api-openapi.yml",
+    "qstash-queues-api-openapi.yml",
+    "qstash-schedules-api-openapi.yml",
+    "qstash-url-groups-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
