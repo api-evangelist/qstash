@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QStash Dead Letter Queue Messages API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Publish a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/publish/:destination",
+            "headers": [
+              {
+                "name": "Upstash-Delay",
+                "value": "5m"
+              },
+              {
+                "name": "Upstash-Retries",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Retry-Delay",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Callback",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Failure-Callback",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Deduplication-Id",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Content-Based-Deduplication",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Timeout",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Not-Before",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Schedule-Id",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Cron",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Method",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "destination",
+                "value": "https://example.com/webhook",
+                "type": "path",
+                "description": "Destination URL or URL Group name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publish a message to a destination URL or URL Group. QStash will store the message durably and deliver it to the destination with automatic retries on failure."
+        },
+        {
+          "info": {
+            "name": "Publish multiple messages in a single request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publish multiple messages in a single batch request. Messages can target different destinations, URL Groups, or queues. If one message fails, the others still proceed."
+        },
+        {
+          "info": {
+            "name": "Enqueue a message to a FIFO queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/enqueue/:queueName/:destination",
+            "headers": [
+              {
+                "name": "Upstash-Delay",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Retries",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Deduplication-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "queueName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target queue"
+              },
+              {
+                "name": "destination",
+                "value": "",
+                "type": "path",
+                "description": "Destination URL for message delivery"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a message to the specified FIFO queue for ordered delivery to the destination URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

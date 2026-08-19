@@ -1,0 +1,184 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QStash Dead Letter Queue Flow Control API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flow Control",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get flow control key details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://qstash.upstash.io/v2/flowControl/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve metrics and configuration for a flow control key, including waitlist size, current parallelism and rate counts, and pause/pin status."
+        },
+        {
+          "info": {
+            "name": "Pause delivery for a flow control key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/flowControl/:key/pause",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Pause all message delivery for the specified flow control key."
+        },
+        {
+          "info": {
+            "name": "Resume delivery for a flow control key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/flowControl/:key/resume",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume message delivery for a paused flow control key."
+        },
+        {
+          "info": {
+            "name": "Pin flow control key configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/flowControl/:key/pin",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parallelism",
+                "value": "",
+                "type": "query",
+                "description": "Maximum parallel deliveries to pin"
+              },
+              {
+                "name": "rate",
+                "value": "",
+                "type": "query",
+                "description": "Rate limit to pin"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Rate period in seconds"
+              }
+            ]
+          },
+          "docs": "Lock the parallelism and/or rate configuration of a flow control key to prevent override by incoming message headers."
+        },
+        {
+          "info": {
+            "name": "Unpin flow control key configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/flowControl/:key/unpin",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parallelism",
+                "value": "",
+                "type": "query",
+                "description": "Unpin parallelism setting"
+              },
+              {
+                "name": "rate",
+                "value": "",
+                "type": "query",
+                "description": "Unpin rate setting"
+              }
+            ]
+          },
+          "docs": "Allow incoming messages to override the flow control key configuration."
+        },
+        {
+          "info": {
+            "name": "Reset rate count for a flow control key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/flowControl/:key/resetRate",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reset the rate count and end the current rate period immediately."
+        },
+        {
+          "info": {
+            "name": "List all flow control keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://qstash.upstash.io/v2/flowControl"
+          },
+          "docs": "Retrieve all active flow control keys for this account."
+        },
+        {
+          "info": {
+            "name": "Get global parallelism status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://qstash.upstash.io/v2/globalParallelism"
+          },
+          "docs": "Retrieve the global parallelism maximum and current active delivery count across all queues and flow control keys."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

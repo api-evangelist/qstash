@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QStash Dead Letter Queue URL Groups API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "URL Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or update URL group endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/topics/:urlGroupName/endpoints",
+            "params": [
+              {
+                "name": "urlGroupName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the URL Group (alphanumeric, underscore, hyphen, and dot characters only)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a URL Group or add/update its endpoints. URL groups allow fan-out message delivery to multiple destinations simultaneously."
+        },
+        {
+          "info": {
+            "name": "Get a URL group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://qstash.upstash.io/v2/topics/:urlGroupName",
+            "params": [
+              {
+                "name": "urlGroupName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve configuration and endpoints of a URL Group."
+        },
+        {
+          "info": {
+            "name": "Delete a URL group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://qstash.upstash.io/v2/topics/:urlGroupName",
+            "params": [
+              {
+                "name": "urlGroupName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a URL Group and all its endpoint configurations."
+        },
+        {
+          "info": {
+            "name": "Remove an endpoint from a URL group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://qstash.upstash.io/v2/topics/:urlGroupName/endpoints/:endpointName",
+            "params": [
+              {
+                "name": "urlGroupName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "endpointName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a specific endpoint from a URL Group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

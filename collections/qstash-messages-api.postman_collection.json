@@ -1,0 +1,1408 @@
+{
+  "item": [
+    {
+      "id": "03fbcd02-680e-47fc-b3f6-fa143fb9d8d7",
+      "name": "Messages",
+      "description": {
+        "content": "Publish and manage messages",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9d17939a-f14c-4e46-a62c-c1d05e2f72b8",
+          "name": "Publish a message",
+          "request": {
+            "name": "Publish a message",
+            "description": {
+              "content": "Publish a message to a destination URL or URL Group. QStash will store the message durably and deliver it to the destination with automatic retries on failure.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "publish",
+                ":destination"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "destination",
+                  "description": "(Required) Destination URL or URL Group name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Delay message delivery by this duration (e.g. \"5m\", \"1h\")",
+                "key": "Upstash-Delay",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Number of retry attempts on delivery failure (0-5)",
+                "key": "Upstash-Retries",
+                "value": "<integer>"
+              },
+              {
+                "disabled": false,
+                "description": "Delay expression between retries (supports math functions like pow, sqrt)",
+                "key": "Upstash-Retry-Delay",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "URL to receive callback after successful delivery",
+                "key": "Upstash-Callback",
+                "value": "<uri>"
+              },
+              {
+                "disabled": false,
+                "description": "URL to receive callback on delivery failure after all retries",
+                "key": "Upstash-Failure-Callback",
+                "value": "<uri>"
+              },
+              {
+                "disabled": false,
+                "description": "Manual deduplication ID; duplicate messages within 10 minutes are ignored",
+                "key": "Upstash-Deduplication-Id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Automatically deduplicate based on destination, body, and content headers",
+                "key": "Upstash-Content-Based-Deduplication",
+                "value": "<boolean>"
+              },
+              {
+                "disabled": false,
+                "description": "Timeout for the delivery request (e.g. \"30s\")",
+                "key": "Upstash-Timeout",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Unix timestamp before which delivery should not occur",
+                "key": "Upstash-Not-Before",
+                "value": "<integer>"
+              },
+              {
+                "disabled": false,
+                "description": "Unique schedule ID; used to create or overwrite a schedule",
+                "key": "Upstash-Schedule-Id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "CRON expression to schedule recurring delivery (e.g. \"0 0 * * *\")",
+                "key": "Upstash-Cron",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "HTTP method to use when calling the destination (default POST)",
+                "key": "Upstash-Method",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 9940.372337789055\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0459bf8e-7739-43f9-8312-a5b811b1abcc",
+              "name": "Message published successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "publish",
+                    ":destination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination",
+                      "description": "(Required) Destination URL or URL Group name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay message delivery by this duration (e.g. \"5m\", \"1h\")",
+                    "key": "Upstash-Delay",
+                    "value": "5m"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Number of retry attempts on delivery failure (0-5)",
+                    "key": "Upstash-Retries",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay expression between retries (supports math functions like pow, sqrt)",
+                    "key": "Upstash-Retry-Delay",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "URL to receive callback after successful delivery",
+                    "key": "Upstash-Callback",
+                    "value": "<uri>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "URL to receive callback on delivery failure after all retries",
+                    "key": "Upstash-Failure-Callback",
+                    "value": "<uri>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Manual deduplication ID; duplicate messages within 10 minutes are ignored",
+                    "key": "Upstash-Deduplication-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Automatically deduplicate based on destination, body, and content headers",
+                    "key": "Upstash-Content-Based-Deduplication",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timeout for the delivery request (e.g. \"30s\")",
+                    "key": "Upstash-Timeout",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unix timestamp before which delivery should not occur",
+                    "key": "Upstash-Not-Before",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique schedule ID; used to create or overwrite a schedule",
+                    "key": "Upstash-Schedule-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "CRON expression to schedule recurring delivery (e.g. \"0 0 * * *\")",
+                    "key": "Upstash-Cron",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "HTTP method to use when calling the destination (default POST)",
+                    "key": "Upstash-Method",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hello\": \"world\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messageId\": \"msg_2XavMmRcJHJf7HkNtNqjfVf8uQe\",\n  \"url\": \"https://example.com/webhook\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5dc7c07-0be7-4b45-91b7-102a9f6c25c2",
+              "name": "Duplicate message detected; existing message returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "publish",
+                    ":destination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination",
+                      "description": "(Required) Destination URL or URL Group name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay message delivery by this duration (e.g. \"5m\", \"1h\")",
+                    "key": "Upstash-Delay",
+                    "value": "5m"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Number of retry attempts on delivery failure (0-5)",
+                    "key": "Upstash-Retries",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay expression between retries (supports math functions like pow, sqrt)",
+                    "key": "Upstash-Retry-Delay",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "URL to receive callback after successful delivery",
+                    "key": "Upstash-Callback",
+                    "value": "<uri>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "URL to receive callback on delivery failure after all retries",
+                    "key": "Upstash-Failure-Callback",
+                    "value": "<uri>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Manual deduplication ID; duplicate messages within 10 minutes are ignored",
+                    "key": "Upstash-Deduplication-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Automatically deduplicate based on destination, body, and content headers",
+                    "key": "Upstash-Content-Based-Deduplication",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timeout for the delivery request (e.g. \"30s\")",
+                    "key": "Upstash-Timeout",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unix timestamp before which delivery should not occur",
+                    "key": "Upstash-Not-Before",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique schedule ID; used to create or overwrite a schedule",
+                    "key": "Upstash-Schedule-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "CRON expression to schedule recurring delivery (e.g. \"0 0 * * *\")",
+                    "key": "Upstash-Cron",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "HTTP method to use when calling the destination (default POST)",
+                    "key": "Upstash-Method",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hello\": \"world\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messageId\": \"msg_2XavMmRcJHJf7HkNtNqjfVf8uQe\",\n  \"url\": \"https://example.com/webhook\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3592e7d0-4f78-4870-ba35-ab8d1dabecdc",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "publish",
+                    ":destination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination",
+                      "description": "(Required) Destination URL or URL Group name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay message delivery by this duration (e.g. \"5m\", \"1h\")",
+                    "key": "Upstash-Delay",
+                    "value": "5m"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Number of retry attempts on delivery failure (0-5)",
+                    "key": "Upstash-Retries",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay expression between retries (supports math functions like pow, sqrt)",
+                    "key": "Upstash-Retry-Delay",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "URL to receive callback after successful delivery",
+                    "key": "Upstash-Callback",
+                    "value": "<uri>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "URL to receive callback on delivery failure after all retries",
+                    "key": "Upstash-Failure-Callback",
+                    "value": "<uri>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Manual deduplication ID; duplicate messages within 10 minutes are ignored",
+                    "key": "Upstash-Deduplication-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Automatically deduplicate based on destination, body, and content headers",
+                    "key": "Upstash-Content-Based-Deduplication",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timeout for the delivery request (e.g. \"30s\")",
+                    "key": "Upstash-Timeout",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unix timestamp before which delivery should not occur",
+                    "key": "Upstash-Not-Before",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique schedule ID; used to create or overwrite a schedule",
+                    "key": "Upstash-Schedule-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "CRON expression to schedule recurring delivery (e.g. \"0 0 * * *\")",
+                    "key": "Upstash-Cron",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "HTTP method to use when calling the destination (default POST)",
+                    "key": "Upstash-Method",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hello\": \"world\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88169118-ff68-4991-8400-1a10b973b4e9",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "publish",
+                    ":destination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination",
+                      "description": "(Required) Destination URL or URL Group name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay message delivery by this duration (e.g. \"5m\", \"1h\")",
+                    "key": "Upstash-Delay",
+                    "value": "5m"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Number of retry attempts on delivery failure (0-5)",
+                    "key": "Upstash-Retries",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay expression between retries (supports math functions like pow, sqrt)",
+                    "key": "Upstash-Retry-Delay",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "URL to receive callback after successful delivery",
+                    "key": "Upstash-Callback",
+                    "value": "<uri>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "URL to receive callback on delivery failure after all retries",
+                    "key": "Upstash-Failure-Callback",
+                    "value": "<uri>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Manual deduplication ID; duplicate messages within 10 minutes are ignored",
+                    "key": "Upstash-Deduplication-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Automatically deduplicate based on destination, body, and content headers",
+                    "key": "Upstash-Content-Based-Deduplication",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timeout for the delivery request (e.g. \"30s\")",
+                    "key": "Upstash-Timeout",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unix timestamp before which delivery should not occur",
+                    "key": "Upstash-Not-Before",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique schedule ID; used to create or overwrite a schedule",
+                    "key": "Upstash-Schedule-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "CRON expression to schedule recurring delivery (e.g. \"0 0 * * *\")",
+                    "key": "Upstash-Cron",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "HTTP method to use when calling the destination (default POST)",
+                    "key": "Upstash-Method",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hello\": \"world\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cae621f3-c90d-44bc-9e72-812e7d0b2c52",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "publish",
+                    ":destination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination",
+                      "description": "(Required) Destination URL or URL Group name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay message delivery by this duration (e.g. \"5m\", \"1h\")",
+                    "key": "Upstash-Delay",
+                    "value": "5m"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Number of retry attempts on delivery failure (0-5)",
+                    "key": "Upstash-Retries",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay expression between retries (supports math functions like pow, sqrt)",
+                    "key": "Upstash-Retry-Delay",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "URL to receive callback after successful delivery",
+                    "key": "Upstash-Callback",
+                    "value": "<uri>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "URL to receive callback on delivery failure after all retries",
+                    "key": "Upstash-Failure-Callback",
+                    "value": "<uri>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Manual deduplication ID; duplicate messages within 10 minutes are ignored",
+                    "key": "Upstash-Deduplication-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Automatically deduplicate based on destination, body, and content headers",
+                    "key": "Upstash-Content-Based-Deduplication",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Timeout for the delivery request (e.g. \"30s\")",
+                    "key": "Upstash-Timeout",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unix timestamp before which delivery should not occur",
+                    "key": "Upstash-Not-Before",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique schedule ID; used to create or overwrite a schedule",
+                    "key": "Upstash-Schedule-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "CRON expression to schedule recurring delivery (e.g. \"0 0 * * *\")",
+                    "key": "Upstash-Cron",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "HTTP method to use when calling the destination (default POST)",
+                    "key": "Upstash-Method",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hello\": \"world\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Maximum requests allowed in the current 1-second window",
+                  "key": "Burst-RateLimit-Limit",
+                  "value": "6125"
+                },
+                {
+                  "disabled": false,
+                  "description": "Requests remaining in the current window",
+                  "key": "Burst-RateLimit-Remaining",
+                  "value": "6125"
+                },
+                {
+                  "disabled": false,
+                  "description": "Unix timestamp when the rate limit window resets",
+                  "key": "Burst-RateLimit-Reset",
+                  "value": "6125"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e8d9cbe-b34b-4be0-96fa-6a1a00b4a1c0",
+          "name": "Publish multiple messages in a single request",
+          "request": {
+            "name": "Publish multiple messages in a single request",
+            "description": {
+              "content": "Publish multiple messages in a single batch request. Messages can target different destinations, URL Groups, or queues. If one message fails, the others still proceed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"destination\": \"<string>\",\n    \"url\": \"<string>\",\n    \"urlGroup\": \"<string>\",\n    \"queue\": \"<string>\",\n    \"headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"body\": \"<string>\",\n    \"delay\": \"<string>\"\n  },\n  {\n    \"destination\": \"<string>\",\n    \"url\": \"<string>\",\n    \"urlGroup\": \"<string>\",\n    \"queue\": \"<string>\",\n    \"headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"body\": \"<string>\",\n    \"delay\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f28da98b-dfeb-470b-9a94-74e8b9ad417e",
+              "name": "Batch result; includes per-message success or error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"destination\": \"https://example.com/endpoint1\",\n    \"body\": \"{\\\"event\\\":\\\"ping\\\"}\",\n    \"headers\": {\n      \"Content-Type\": \"application/json\"\n    }\n  },\n  {\n    \"destination\": \"https://example.com/endpoint2\",\n    \"body\": \"{\\\"event\\\":\\\"pong\\\"}\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"messageId\": \"string\",\n    \"url\": \"string\",\n    \"error\": \"string\"\n  },\n  {\n    \"messageId\": \"string\",\n    \"url\": \"string\",\n    \"error\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c86e53f-f778-40d6-b67d-6ab2f47a43f3",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"destination\": \"https://example.com/endpoint1\",\n    \"body\": \"{\\\"event\\\":\\\"ping\\\"}\",\n    \"headers\": {\n      \"Content-Type\": \"application/json\"\n    }\n  },\n  {\n    \"destination\": \"https://example.com/endpoint2\",\n    \"body\": \"{\\\"event\\\":\\\"pong\\\"}\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b2cbdec-13fd-491d-bce2-28f9e945fa5d",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"destination\": \"https://example.com/endpoint1\",\n    \"body\": \"{\\\"event\\\":\\\"ping\\\"}\",\n    \"headers\": {\n      \"Content-Type\": \"application/json\"\n    }\n  },\n  {\n    \"destination\": \"https://example.com/endpoint2\",\n    \"body\": \"{\\\"event\\\":\\\"pong\\\"}\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0aeaebbd-20bb-48b5-abed-d471590987e1",
+          "name": "Enqueue a message to a FIFO queue",
+          "request": {
+            "name": "Enqueue a message to a FIFO queue",
+            "description": {
+              "content": "Add a message to the specified FIFO queue for ordered delivery to the destination URL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enqueue",
+                ":queueName",
+                ":destination"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queueName",
+                  "description": "(Required) Name of the target queue"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "destination",
+                  "description": "(Required) Destination URL for message delivery"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Delay message delivery by this duration",
+                "key": "Upstash-Delay",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Number of retry attempts",
+                "key": "Upstash-Retries",
+                "value": "<integer>"
+              },
+              {
+                "disabled": false,
+                "description": "Manual deduplication ID",
+                "key": "Upstash-Deduplication-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 9940.372337789055\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cc98fb60-f9a2-4915-b7db-faad4fd26cd4",
+              "name": "Message enqueued successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enqueue",
+                    ":queueName",
+                    ":destination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) Name of the target queue"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination",
+                      "description": "(Required) Destination URL for message delivery"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay message delivery by this duration",
+                    "key": "Upstash-Delay",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Number of retry attempts",
+                    "key": "Upstash-Retries",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Manual deduplication ID",
+                    "key": "Upstash-Deduplication-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 5771\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messageId\": \"msg_2XavMmRcJHJf7HkNtNqjfVf8uQe\",\n  \"url\": \"https://example.com/webhook\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3095776-0668-4fc0-b28e-8ef316cc50a1",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enqueue",
+                    ":queueName",
+                    ":destination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) Name of the target queue"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination",
+                      "description": "(Required) Destination URL for message delivery"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay message delivery by this duration",
+                    "key": "Upstash-Delay",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Number of retry attempts",
+                    "key": "Upstash-Retries",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Manual deduplication ID",
+                    "key": "Upstash-Deduplication-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 5771\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df300183-5a39-4f75-895d-1453c5ea4553",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enqueue",
+                    ":queueName",
+                    ":destination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queueName",
+                      "description": "(Required) Name of the target queue"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination",
+                      "description": "(Required) Destination URL for message delivery"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay message delivery by this duration",
+                    "key": "Upstash-Delay",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Number of retry attempts",
+                    "key": "Upstash-Retries",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Manual deduplication ID",
+                    "key": "Upstash-Deduplication-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": 5771\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Maximum requests allowed in the current 1-second window",
+                  "key": "Burst-RateLimit-Limit",
+                  "value": "6125"
+                },
+                {
+                  "disabled": false,
+                  "description": "Requests remaining in the current window",
+                  "key": "Burst-RateLimit-Remaining",
+                  "value": "6125"
+                },
+                {
+                  "disabled": false,
+                  "description": "Unix timestamp when the rate limit window resets",
+                  "key": "Burst-RateLimit-Reset",
+                  "value": "6125"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://qstash.upstash.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d27f4355-e968-4865-b3c3-023235eefe08",
+    "name": "QStash Dead Letter Queue Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.\n\nContact Support:\n Name: Upstash Support",
+      "type": "text/plain"
+    }
+  }
+}

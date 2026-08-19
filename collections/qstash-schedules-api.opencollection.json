@@ -1,0 +1,152 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QStash Dead Letter Queue Schedules API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or update a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/schedules/:destination",
+            "headers": [
+              {
+                "name": "Upstash-Cron",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Schedule-Id",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Queue-Name",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Retries",
+                "value": ""
+              },
+              {
+                "name": "Upstash-Delay",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "destination",
+                "value": "",
+                "type": "path",
+                "description": "Destination URL, URL Group name, or queue destination"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a CRON-scheduled recurring message delivery. The Upstash-Cron header defines the schedule. Timezone support via CRON_TZ prefix."
+        },
+        {
+          "info": {
+            "name": "List all schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://qstash.upstash.io/v2/schedules"
+          },
+          "docs": "Retrieve a list of all schedules configured for this account."
+        },
+        {
+          "info": {
+            "name": "Get a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://qstash.upstash.io/v2/schedules/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details of a specific schedule by ID."
+        },
+        {
+          "info": {
+            "name": "Delete a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://qstash.upstash.io/v2/schedules/:scheduleId",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently delete a schedule by ID."
+        },
+        {
+          "info": {
+            "name": "Pause a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/schedules/:scheduleId/pause",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Pause an active schedule; no messages will be delivered while paused."
+        },
+        {
+          "info": {
+            "name": "Resume a paused schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/schedules/:scheduleId/resume",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume a previously paused schedule."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

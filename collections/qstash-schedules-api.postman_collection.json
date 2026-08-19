@@ -1,0 +1,1015 @@
+{
+  "item": [
+    {
+      "id": "9d04efe0-8d2b-4283-9e04-9216f5e8987f",
+      "name": "Schedules",
+      "description": {
+        "content": "Create and manage CRON-based scheduled messages",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2dfe7c91-d465-4a7e-9dd4-1fbb0074eabc",
+          "name": "Create or update a schedule",
+          "request": {
+            "name": "Create or update a schedule",
+            "description": {
+              "content": "Create a CRON-scheduled recurring message delivery. The Upstash-Cron header defines the schedule. Timezone support via CRON_TZ prefix.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                ":destination"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "destination",
+                  "description": "(Required) Destination URL, URL Group name, or queue destination"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) CRON expression (e.g. \"0 0 * * *\"). Supports timezone prefix like \"CRON_TZ=America/New_York 0 4 * * *\"",
+                "key": "Upstash-Cron",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Specify or overwrite a schedule by ID",
+                "key": "Upstash-Schedule-Id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Route scheduled message to a named queue",
+                "key": "Upstash-Queue-Name",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Number of retry attempts per scheduled delivery",
+                "key": "Upstash-Retries",
+                "value": "<integer>"
+              },
+              {
+                "disabled": false,
+                "description": "Delay each delivery after the scheduled trigger time",
+                "key": "Upstash-Delay",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": 6657.85061021578,\n  \"key_1\": 5742.204418491742\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "42d7fc5c-0f4a-463b-b54b-81e64e7de614",
+              "name": "Schedule created or updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":destination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination",
+                      "description": "(Required) Destination URL, URL Group name, or queue destination"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) CRON expression (e.g. \"0 0 * * *\"). Supports timezone prefix like \"CRON_TZ=America/New_York 0 4 * * *\"",
+                    "key": "Upstash-Cron",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specify or overwrite a schedule by ID",
+                    "key": "Upstash-Schedule-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Route scheduled message to a named queue",
+                    "key": "Upstash-Queue-Name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Number of retry attempts per scheduled delivery",
+                    "key": "Upstash-Retries",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay each delivery after the scheduled trigger time",
+                    "key": "Upstash-Delay",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hello\": \"world\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"scheduleId\": \"scd_2XavMmRcJHJf7HkNtNqjfVf8uQe\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "649964d4-2600-4712-a3f9-4036c1903133",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":destination"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination",
+                      "description": "(Required) Destination URL, URL Group name, or queue destination"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) CRON expression (e.g. \"0 0 * * *\"). Supports timezone prefix like \"CRON_TZ=America/New_York 0 4 * * *\"",
+                    "key": "Upstash-Cron",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specify or overwrite a schedule by ID",
+                    "key": "Upstash-Schedule-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Route scheduled message to a named queue",
+                    "key": "Upstash-Queue-Name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Number of retry attempts per scheduled delivery",
+                    "key": "Upstash-Retries",
+                    "value": "<integer>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Delay each delivery after the scheduled trigger time",
+                    "key": "Upstash-Delay",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hello\": \"world\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3008bb54-76d6-4b0c-b04b-851652bf7d0a",
+          "name": "List all schedules",
+          "request": {
+            "name": "List all schedules",
+            "description": {
+              "content": "Retrieve a list of all schedules configured for this account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d1579b0b-282f-4501-8842-8a94555ad63c",
+              "name": "List of schedules",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"scheduleId\": \"string\",\n    \"cron\": \"string\",\n    \"destination\": \"string\",\n    \"createdAt\": 7268,\n    \"paused\": true\n  },\n  {\n    \"scheduleId\": \"string\",\n    \"cron\": \"string\",\n    \"destination\": \"string\",\n    \"createdAt\": 9215,\n    \"paused\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3038800-d3e6-47f2-afb2-af34cabfb063",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c480d87-5f12-4ea0-bac9-74417a5e041a",
+          "name": "Get a schedule",
+          "request": {
+            "name": "Get a schedule",
+            "description": {
+              "content": "Retrieve details of a specific schedule by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                ":scheduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cfa1a90c-9388-46fb-b190-a983907e8106",
+              "name": "Schedule details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"scheduleId\": \"string\",\n  \"cron\": \"string\",\n  \"destination\": \"string\",\n  \"createdAt\": 3402,\n  \"paused\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24a208f7-1f48-45e9-9d28-ef78f2c0271a",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9dd5461-aac6-478f-9880-59a7dce6daca",
+          "name": "Delete a schedule",
+          "request": {
+            "name": "Delete a schedule",
+            "description": {
+              "content": "Permanently delete a schedule by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                ":scheduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "15c6ed75-a027-4950-85a4-aba1b2b1cc58",
+              "name": "Schedule deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "525941d6-d8ee-4fe4-84c8-ecc035608275",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "310453a0-3c2c-4a39-88cd-c0a13e586a09",
+          "name": "Pause a schedule",
+          "request": {
+            "name": "Pause a schedule",
+            "description": {
+              "content": "Pause an active schedule; no messages will be delivered while paused.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                ":scheduleId",
+                "pause"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0513428c-0b00-4b1c-8846-50b4e2ea63ed",
+              "name": "Schedule paused",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94e6e17d-80fb-44c6-8d02-5f44a935fa5b",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d353a5b-e2bc-49f2-a29d-4d810a5c9217",
+          "name": "Resume a paused schedule",
+          "request": {
+            "name": "Resume a paused schedule",
+            "description": {
+              "content": "Resume a previously paused schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                ":scheduleId",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c52340c8-8d08-4a9f-8c4d-6482688e8052",
+              "name": "Schedule resumed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bf417608-b282-4724-8f9b-b3cfd8425e6f",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://qstash.upstash.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "003bc29d-8ec9-41a6-ae36-bf823108db64",
+    "name": "QStash Dead Letter Queue Schedules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.\n\nContact Support:\n Name: Upstash Support",
+      "type": "text/plain"
+    }
+  }
+}

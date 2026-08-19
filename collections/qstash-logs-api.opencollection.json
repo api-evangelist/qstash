@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QStash Dead Letter Queue Logs API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve message delivery logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://qstash.upstash.io/v2/logs",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression for logs"
+              }
+            ]
+          },
+          "docs": "Retrieve logs of message delivery attempts, statuses, and events for debugging and auditing purposes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

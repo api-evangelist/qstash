@@ -1,0 +1,193 @@
+{
+  "item": [
+    {
+      "id": "2d81cf23-73aa-43a6-9996-d293e0fba03c",
+      "name": "Logs",
+      "description": {
+        "content": "Retrieve message delivery logs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d536cdc5-9e76-4923-b20d-3c18fbb14c90",
+          "name": "Retrieve message delivery logs",
+          "request": {
+            "name": "Retrieve message delivery logs",
+            "description": {
+              "content": "Retrieve logs of message delivery attempts, statuses, and events for debugging and auditing purposes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor from a previous response"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter expression for logs"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc44e5cc-1ae6-4ba6-9b00-7b45ee841baa",
+              "name": "Message delivery logs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cursor\": \"string\",\n  \"messages\": [\n    {\n      \"messageId\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"DELIVERED\",\n      \"createdAt\": 2297,\n      \"nextDeliveryTime\": 5306,\n      \"notBefore\": 9852,\n      \"scheduleId\": \"string\",\n      \"topicName\": \"string\",\n      \"responseStatus\": 8938,\n      \"retried\": 8893,\n      \"maxRetries\": 3846\n    },\n    {\n      \"messageId\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"CANCELLED\",\n      \"createdAt\": 1198,\n      \"nextDeliveryTime\": 2104,\n      \"notBefore\": 3518,\n      \"scheduleId\": \"string\",\n      \"topicName\": \"string\",\n      \"responseStatus\": 683,\n      \"retried\": 1941,\n      \"maxRetries\": 2633\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f407c4b-c028-4efd-bf89-3c9c5efeec14",
+              "name": "Missing or invalid authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://qstash.upstash.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2e4407b6-3a5a-44bc-a2ba-a1bf26899730",
+    "name": "QStash Dead Letter Queue Logs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.\n\nContact Support:\n Name: Upstash Support",
+      "type": "text/plain"
+    }
+  }
+}

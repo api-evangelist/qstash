@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QStash Dead Letter Queue API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dead Letter Queue",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List dead letter queue messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://qstash.upstash.io/v2/dlq",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from previous response"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of messages to return"
+              }
+            ]
+          },
+          "docs": "Retrieve messages that have been moved to the dead letter queue after exhausting all delivery retries."
+        },
+        {
+          "info": {
+            "name": "Get a dead letter queue message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://qstash.upstash.io/v2/dlq/:dlqId",
+            "params": [
+              {
+                "name": "dlqId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific DLQ message by its DLQ ID."
+        },
+        {
+          "info": {
+            "name": "Delete a dead letter queue message",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://qstash.upstash.io/v2/dlq/:dlqId",
+            "params": [
+              {
+                "name": "dlqId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently delete a message from the dead letter queue."
+        },
+        {
+          "info": {
+            "name": "Republish a dead letter queue message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://qstash.upstash.io/v2/dlq/:dlqId/republish",
+            "params": [
+              {
+                "name": "dlqId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Republish a dead letter queue message for redelivery to its original destination."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
