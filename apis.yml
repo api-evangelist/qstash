@@ -35,6 +35,16 @@ tags:
   - Serverless
   - HTTP Messaging
   - Background Jobs
+  - Webhook
+  - Dead Letter Queue
+  - Cron
+  - Upstash
+tags_raw:
+  - Message Queue
+  - Task Scheduling
+  - Serverless
+  - HTTP Messaging
+  - Background Jobs
   - Webhooks
   - Dead Letter Queue
   - CRON
@@ -82,6 +92,8 @@ apis:
   humanURL: https://upstash.com/docs/qstash/overall/getstarted
   baseURL: https://qstash.upstash.io/v2
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
