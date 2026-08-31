@@ -49,7 +49,7 @@ tags:
   - Background Jobs
   - Webhook
   - Dead Letter Queue
-  - Cron
+  - CRON
   - Upstash
 tags_raw:
   - Message Queue
