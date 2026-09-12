@@ -21,6 +21,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "qstash-dead-letter-queue-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "qstash-flow-control-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "qstash-logs-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "qstash-messages-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "qstash-queues-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "qstash-schedules-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "qstash-url-groups-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

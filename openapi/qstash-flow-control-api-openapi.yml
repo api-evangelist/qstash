@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: QStash Dead Letter Queue Flow Control API
   description: QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.
@@ -183,15 +183,6 @@ components:
         error:
           type: string
           description: Human-readable error message
-    GlobalParallelism:
-      type: object
-      properties:
-        max:
-          type: integer
-          description: Maximum global parallel deliveries allowed by plan
-        active:
-          type: integer
-          description: Current number of active parallel deliveries globally
     FlowControlInfo:
       type: object
       properties:
@@ -222,6 +213,15 @@ components:
         pinned:
           type: boolean
           description: Whether the configuration is pinned
+    GlobalParallelism:
+      type: object
+      properties:
+        max:
+          type: integer
+          description: Maximum global parallel deliveries allowed by plan
+        active:
+          type: integer
+          description: Current number of active parallel deliveries globally
   responses:
     NotFound:
       description: Resource not found
