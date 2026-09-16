@@ -39,7 +39,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/qstash.png
 url: https://raw.githubusercontent.com/api-evangelist/qstash/refs/heads/main/apis.yml
 created: '2026-06-12'
-modified: '2026-06-12'
+modified: '2026-09-13'
 specificationVersion: '0.23'
 tags:
   - Message Queue
@@ -181,6 +181,12 @@ common:
     url: vocabulary/qstash-vocabulary.yml
   - type: JSONLDContext
     url: json-ld/qstash-context.jsonld
+  - name: MCP Server
+    url: https://mcp.upstash.com/mcp
+    type: MCPServer
+  - name: MCP Server Source
+    url: https://github.com/upstash/mcp-server
+    type: MCPServer
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
