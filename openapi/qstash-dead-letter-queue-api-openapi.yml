@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: QStash Dead Letter Queue API
-  description: QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.
+  description: QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management.
   version: '2.0'
   contact:
     name: Upstash Support
@@ -108,12 +108,16 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ErrorResponse:
+    DlqListResponse:
       type: object
       properties:
-        error:
+        cursor:
           type: string
-          description: Human-readable error message
+          description: Pagination cursor for the next page
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/DlqMessage'
     PublishResponse:
       type: object
       properties:
@@ -125,16 +129,12 @@ components:
           type: string
           description: Destination URL the message will be delivered to
           example: https://example.com/webhook
-    DlqListResponse:
+    ErrorResponse:
       type: object
       properties:
-        cursor:
+        error:
           type: string
-          description: Pagination cursor for the next page
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/DlqMessage'
+          description: Human-readable error message
     DlqMessage:
       type: object
       properties:

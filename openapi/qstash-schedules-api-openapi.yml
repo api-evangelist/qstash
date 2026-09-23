@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
-  title: QStash Dead Letter Queue Schedules API
-  description: QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.
+  title: QStash Schedules API
+  description: QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management.
   version: '2.0'
   contact:
     name: Upstash Support
@@ -171,12 +171,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
     ScheduleResponse:
       type: object
       properties:
@@ -202,6 +196,12 @@ components:
         paused:
           type: boolean
           description: Whether the schedule is currently paused
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
   responses:
     Unauthorized:
       description: Missing or invalid authentication token
