@@ -164,6 +164,38 @@ paths:
         '200':
           description: Queue resumed
 components:
+  responses:
+    RateLimited:
+      description: Rate limit exceeded
+      headers:
+        Burst-RateLimit-Limit:
+          description: Maximum requests allowed in the current 1-second window
+          schema:
+            type: integer
+        Burst-RateLimit-Remaining:
+          description: Requests remaining in the current window
+          schema:
+            type: integer
+        Burst-RateLimit-Reset:
+          description: Unix timestamp when the rate limit window resets
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     Queue:
       type: object
@@ -209,38 +241,6 @@ components:
           type: integer
           minimum: 1
           description: Maximum number of messages to deliver in parallel (default 1)
-  responses:
-    RateLimited:
-      description: Rate limit exceeded
-      headers:
-        Burst-RateLimit-Limit:
-          description: Maximum requests allowed in the current 1-second window
-          schema:
-            type: integer
-        Burst-RateLimit-Remaining:
-          description: Requests remaining in the current window
-          schema:
-            type: integer
-        Burst-RateLimit-Reset:
-          description: Unix timestamp when the rate limit window resets
-          schema:
-            type: integer
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

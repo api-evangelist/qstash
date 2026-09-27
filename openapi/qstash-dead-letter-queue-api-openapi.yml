@@ -108,33 +108,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    DlqListResponse:
-      type: object
-      properties:
-        cursor:
-          type: string
-          description: Pagination cursor for the next page
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/DlqMessage'
-    PublishResponse:
-      type: object
-      properties:
-        messageId:
-          type: string
-          description: Unique identifier for the published message
-          example: msg_2XavMmRcJHJf7HkNtNqjfVf8uQe
-        url:
-          type: string
-          description: Destination URL the message will be delivered to
-          example: https://example.com/webhook
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
     DlqMessage:
       type: object
       properties:
@@ -172,6 +145,33 @@ components:
         responseBody:
           type: string
           description: Last HTTP response body received from destination
+    PublishResponse:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Unique identifier for the published message
+          example: msg_2XavMmRcJHJf7HkNtNqjfVf8uQe
+        url:
+          type: string
+          description: Destination URL the message will be delivered to
+          example: https://example.com/webhook
+    DlqListResponse:
+      type: object
+      properties:
+        cursor:
+          type: string
+          description: Pagination cursor for the next page
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/DlqMessage'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
   responses:
     Unauthorized:
       description: Missing or invalid authentication token
