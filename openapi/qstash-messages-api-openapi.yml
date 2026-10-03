@@ -230,6 +230,12 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: Invalid request parameters
       content:
@@ -255,42 +261,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    BatchResponseItem:
-      type: object
-      properties:
-        messageId:
-          type: string
-          description: Message ID for successfully queued messages
-        url:
-          type: string
-          description: Destination URL
-        error:
-          type: string
-          description: Error message if this particular batch item failed
-    PublishResponse:
-      type: object
-      properties:
-        messageId:
-          type: string
-          description: Unique identifier for the published message
-          example: msg_2XavMmRcJHJf7HkNtNqjfVf8uQe
-        url:
-          type: string
-          description: Destination URL the message will be delivered to
-          example: https://example.com/webhook
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
     BatchMessage:
       type: object
       required:
@@ -319,6 +290,35 @@ components:
         delay:
           type: string
           description: Delay before delivery (e.g. "5s", "1m")
+    PublishResponse:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Unique identifier for the published message
+          example: msg_2XavMmRcJHJf7HkNtNqjfVf8uQe
+        url:
+          type: string
+          description: Destination URL the message will be delivered to
+          example: https://example.com/webhook
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    BatchResponseItem:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Message ID for successfully queued messages
+        url:
+          type: string
+          description: Destination URL
+        error:
+          type: string
+          description: Error message if this particular batch item failed
   securitySchemes:
     BearerAuth:
       type: http

@@ -112,6 +112,44 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  schemas:
+    UrlGroupEndpoint:
+      type: object
+      required:
+      - url
+      properties:
+        name:
+          type: string
+          description: Identifier for this endpoint within the URL Group
+        url:
+          type: string
+          format: uri
+          description: Target URL for this endpoint
+    UrlGroupUpsert:
+      type: object
+      required:
+      - endpoints
+      properties:
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/UrlGroupEndpoint'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    UrlGroup:
+      type: object
+      properties:
+        name:
+          type: string
+          description: URL Group name
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/UrlGroupEndpoint'
   responses:
     Unauthorized:
       description: Missing or invalid authentication token
@@ -125,44 +163,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    UrlGroupUpsert:
-      type: object
-      required:
-      - endpoints
-      properties:
-        endpoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/UrlGroupEndpoint'
-    UrlGroupEndpoint:
-      type: object
-      required:
-      - url
-      properties:
-        name:
-          type: string
-          description: Identifier for this endpoint within the URL Group
-        url:
-          type: string
-          format: uri
-          description: Target URL for this endpoint
-    UrlGroup:
-      type: object
-      properties:
-        name:
-          type: string
-          description: URL Group name
-        endpoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/UrlGroupEndpoint'
   securitySchemes:
     BearerAuth:
       type: http

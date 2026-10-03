@@ -47,6 +47,22 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    LogsResponse:
+      type: object
+      properties:
+        cursor:
+          type: string
+          description: Pagination cursor for the next page
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntry'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
     LogEntry:
       type: object
       properties:
@@ -91,22 +107,6 @@ components:
         maxRetries:
           type: integer
           description: Maximum configured retry attempts
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    LogsResponse:
-      type: object
-      properties:
-        cursor:
-          type: string
-          description: Pagination cursor for the next page
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/LogEntry'
   responses:
     Unauthorized:
       description: Missing or invalid authentication token
