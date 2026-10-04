@@ -177,6 +177,15 @@ paths:
                 $ref: '#/components/schemas/GlobalParallelism'
 components:
   schemas:
+    GlobalParallelism:
+      type: object
+      properties:
+        max:
+          type: integer
+          description: Maximum global parallel deliveries allowed by plan
+        active:
+          type: integer
+          description: Current number of active parallel deliveries globally
     ErrorResponse:
       type: object
       properties:
@@ -213,15 +222,6 @@ components:
         pinned:
           type: boolean
           description: Whether the configuration is pinned
-    GlobalParallelism:
-      type: object
-      properties:
-        max:
-          type: integer
-          description: Maximum global parallel deliveries allowed by plan
-        active:
-          type: integer
-          description: Current number of active parallel deliveries globally
   responses:
     NotFound:
       description: Resource not found

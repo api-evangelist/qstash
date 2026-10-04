@@ -165,18 +165,6 @@ paths:
           description: Queue resumed
 components:
   responses:
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     RateLimited:
       description: Rate limit exceeded
       headers:
@@ -196,6 +184,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     QueueUpsert:
       type: object
@@ -209,6 +209,12 @@ components:
           type: integer
           minimum: 1
           description: Maximum number of messages to deliver in parallel (default 1)
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
     Queue:
       type: object
       properties:
@@ -235,12 +241,6 @@ components:
           type: string
           description: Destination URL the message will be delivered to
           example: https://example.com/webhook
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
   securitySchemes:
     BearerAuth:
       type: http
