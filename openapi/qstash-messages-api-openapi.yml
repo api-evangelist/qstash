@@ -230,24 +230,6 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   schemas:
-    BatchResponseItem:
-      type: object
-      properties:
-        messageId:
-          type: string
-          description: Message ID for successfully queued messages
-        url:
-          type: string
-          description: Destination URL
-        error:
-          type: string
-          description: Error message if this particular batch item failed
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
     BatchMessage:
       type: object
       required:
@@ -276,6 +258,24 @@ components:
         delay:
           type: string
           description: Delay before delivery (e.g. "5s", "1m")
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    BatchResponseItem:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Message ID for successfully queued messages
+        url:
+          type: string
+          description: Destination URL
+        error:
+          type: string
+          description: Error message if this particular batch item failed
     PublishResponse:
       type: object
       properties:
@@ -288,6 +288,18 @@ components:
           description: Destination URL the message will be delivered to
           example: https://example.com/webhook
   responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     RateLimited:
       description: Rate limit exceeded
       headers:
@@ -303,18 +315,6 @@ components:
           description: Unix timestamp when the rate limit window resets
           schema:
             type: integer
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Missing or invalid authentication token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
       content:
         application/json:
           schema:

@@ -108,6 +108,16 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    DlqListResponse:
+      type: object
+      properties:
+        cursor:
+          type: string
+          description: Pagination cursor for the next page
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/DlqMessage'
     DlqMessage:
       type: object
       properties:
@@ -162,25 +172,15 @@ components:
           type: string
           description: Destination URL the message will be delivered to
           example: https://example.com/webhook
-    DlqListResponse:
-      type: object
-      properties:
-        cursor:
-          type: string
-          description: Pagination cursor for the next page
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/DlqMessage'
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Missing or invalid authentication token
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Missing or invalid authentication token
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
