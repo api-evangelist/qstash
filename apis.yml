@@ -151,6 +151,8 @@ apis:
   - type: Documentation
     url: https://upstash.com/docs/qstash/overall/getstarted
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/qstash/overview
   - type: AgenticAccess
     url: agentic-access/qstash-agentic-access.yml
   - type: DomainSecurity
