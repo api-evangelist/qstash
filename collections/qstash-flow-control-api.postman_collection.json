@@ -1,821 +1,806 @@
 {
+  "info": {
+    "_postman_id": "d9eb779a-7393-4864-8b0c-97efc165e756",
+    "name": "QStash Flow Control API",
+    "description": "QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management.\n\nContact Support:\n Name: Upstash Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:39:13.000Z",
+    "updatedAt": "2026-10-21T20:39:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d9eb779a-7393-4864-8b0c-97efc165e756"
+  },
   "item": [
     {
-      "id": "e52a21f1-4a98-4166-acc1-376a556f0e1e",
-      "name": "Flow Control",
-      "description": {
-        "content": "Manage flow control keys for rate and parallelism limiting",
-        "type": "text/plain"
-      },
+      "name": "flowControl",
       "item": [
         {
-          "id": "31ae21a8-22b2-45f5-b31b-0ea9974df420",
-          "name": "Get flow control key details",
-          "request": {
-            "name": "Get flow control key details",
-            "description": {
-              "content": "Retrieve metrics and configuration for a flow control key, including waitlist size, current parallelism and rate counts, and pause/pin status.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "flowControl",
-                ":key"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
+          "name": "{key}",
+          "item": [
+            {
+              "name": "pause",
+              "item": [
                 {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "key",
-                  "description": "(Required) "
+                  "name": "Pause delivery for a flow control key",
+                  "id": "6bd84cd6-b494-4a3e-8801-e85575a6d7fc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/flowControl/:key/pause",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flowControl",
+                        ":key",
+                        "pause"
+                      ],
+                      "variable": [
+                        {
+                          "id": "461f7e37-3cef-4101-9e58-06dc2e543ba0",
+                          "key": "key",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Pause all message delivery for the specified flow control key."
+                  },
+                  "response": [
+                    {
+                      "id": "65a457bb-7365-4589-a710-ae46064ee322",
+                      "name": "Flow control key paused",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/flowControl/:key/pause",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "flowControl",
+                            ":key",
+                            "pause"
+                          ],
+                          "variable": [
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:39:14.000Z",
+                      "updatedAt": "2026-10-21T20:39:14.000Z",
+                      "uid": "35240-65a457bb-7365-4589-a710-ae46064ee322"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:39:14.000Z",
+                  "updatedAt": "2026-10-21T20:39:14.000Z",
+                  "uid": "35240-6bd84cd6-b494-4a3e-8801-e85575a6d7fc"
                 }
-              ]
+              ],
+              "id": "e5885259-a0ab-4c31-bed6-5484f80bba4e",
+              "createdAt": "2026-10-21T20:39:14.000Z",
+              "updatedAt": "2026-10-21T20:39:14.000Z",
+              "uid": "35240-e5885259-a0ab-4c31-bed6-5484f80bba4e"
             },
+            {
+              "name": "resume",
+              "item": [
+                {
+                  "name": "Resume delivery for a flow control key",
+                  "id": "538f5a64-21c7-444d-83ce-df85af9137b9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/flowControl/:key/resume",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flowControl",
+                        ":key",
+                        "resume"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fa163a8c-e2b9-47d8-898a-48b5879b030b",
+                          "key": "key",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Resume message delivery for a paused flow control key."
+                  },
+                  "response": [
+                    {
+                      "id": "c6251e36-e06a-49e0-920c-cee3278c3bcb",
+                      "name": "Flow control key resumed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/flowControl/:key/resume",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "flowControl",
+                            ":key",
+                            "resume"
+                          ],
+                          "variable": [
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:39:14.000Z",
+                      "updatedAt": "2026-10-21T20:39:14.000Z",
+                      "uid": "35240-c6251e36-e06a-49e0-920c-cee3278c3bcb"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:39:14.000Z",
+                  "updatedAt": "2026-10-21T20:39:14.000Z",
+                  "uid": "35240-538f5a64-21c7-444d-83ce-df85af9137b9"
+                }
+              ],
+              "id": "6f614ff8-d999-45a7-ad14-b3fdce8108df",
+              "createdAt": "2026-10-21T20:39:14.000Z",
+              "updatedAt": "2026-10-21T20:39:14.000Z",
+              "uid": "35240-6f614ff8-d999-45a7-ad14-b3fdce8108df"
+            },
+            {
+              "name": "pin",
+              "item": [
+                {
+                  "name": "Pin flow control key configuration",
+                  "id": "147ceba9-c9cd-4362-a0ca-7b1b37e1650f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/flowControl/:key/pin?parallelism=<integer>&rate=<integer>&period=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flowControl",
+                        ":key",
+                        "pin"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum parallel deliveries to pin",
+                          "key": "parallelism",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Rate limit to pin",
+                          "key": "rate",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Rate period in seconds",
+                          "key": "period",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "a6cdcd45-f829-4369-8fa9-557cdda0b6a6",
+                          "key": "key",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Lock the parallelism and/or rate configuration of a flow control key to prevent override by incoming message headers."
+                  },
+                  "response": [
+                    {
+                      "id": "ba8711c3-3424-4378-bc5a-3d70a005ecfc",
+                      "name": "Flow control key pinned",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/flowControl/:key/pin?parallelism=<integer>&rate=<integer>&period=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "flowControl",
+                            ":key",
+                            "pin"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum parallel deliveries to pin",
+                              "key": "parallelism",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Rate limit to pin",
+                              "key": "rate",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Rate period in seconds",
+                              "key": "period",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:39:14.000Z",
+                      "updatedAt": "2026-10-21T20:39:14.000Z",
+                      "uid": "35240-ba8711c3-3424-4378-bc5a-3d70a005ecfc"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:39:14.000Z",
+                  "updatedAt": "2026-10-21T20:39:14.000Z",
+                  "uid": "35240-147ceba9-c9cd-4362-a0ca-7b1b37e1650f"
+                }
+              ],
+              "id": "948d6f67-165b-48fe-8866-cb1674f87931",
+              "createdAt": "2026-10-21T20:39:14.000Z",
+              "updatedAt": "2026-10-21T20:39:14.000Z",
+              "uid": "35240-948d6f67-165b-48fe-8866-cb1674f87931"
+            },
+            {
+              "name": "unpin",
+              "item": [
+                {
+                  "name": "Unpin flow control key configuration",
+                  "id": "b99cdd4f-6fa6-41ca-ac10-42e3c112955f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/flowControl/:key/unpin?parallelism=<boolean>&rate=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flowControl",
+                        ":key",
+                        "unpin"
+                      ],
+                      "query": [
+                        {
+                          "description": "Unpin parallelism setting",
+                          "key": "parallelism",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "Unpin rate setting",
+                          "key": "rate",
+                          "value": "<boolean>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "f377d79d-13c8-4bc0-91f1-167677245e64",
+                          "key": "key",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Allow incoming messages to override the flow control key configuration."
+                  },
+                  "response": [
+                    {
+                      "id": "81e66502-d6fb-4a1f-9b0b-956b258a5da0",
+                      "name": "Flow control key unpinned",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/flowControl/:key/unpin?parallelism=<boolean>&rate=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "flowControl",
+                            ":key",
+                            "unpin"
+                          ],
+                          "query": [
+                            {
+                              "description": "Unpin parallelism setting",
+                              "key": "parallelism",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "description": "Unpin rate setting",
+                              "key": "rate",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:39:14.000Z",
+                      "updatedAt": "2026-10-21T20:39:14.000Z",
+                      "uid": "35240-81e66502-d6fb-4a1f-9b0b-956b258a5da0"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:39:14.000Z",
+                  "updatedAt": "2026-10-21T20:39:14.000Z",
+                  "uid": "35240-b99cdd4f-6fa6-41ca-ac10-42e3c112955f"
+                }
+              ],
+              "id": "a03a69ae-ac5d-4932-abcf-22a098d057e8",
+              "createdAt": "2026-10-21T20:39:14.000Z",
+              "updatedAt": "2026-10-21T20:39:14.000Z",
+              "uid": "35240-a03a69ae-ac5d-4932-abcf-22a098d057e8"
+            },
+            {
+              "name": "resetRate",
+              "item": [
+                {
+                  "name": "Reset rate count for a flow control key",
+                  "id": "a2f6ffd1-5937-46bb-9933-63260fc35f92",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/flowControl/:key/resetRate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flowControl",
+                        ":key",
+                        "resetRate"
+                      ],
+                      "variable": [
+                        {
+                          "id": "7a5076be-e40d-4295-8313-e28db2ccf8b3",
+                          "key": "key",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Reset the rate count and end the current rate period immediately."
+                  },
+                  "response": [
+                    {
+                      "id": "4962f7e6-4d95-4d8a-a348-88f64f005389",
+                      "name": "Rate reset",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/flowControl/:key/resetRate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "flowControl",
+                            ":key",
+                            "resetRate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "key"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:39:14.000Z",
+                      "updatedAt": "2026-10-21T20:39:14.000Z",
+                      "uid": "35240-4962f7e6-4d95-4d8a-a348-88f64f005389"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:39:14.000Z",
+                  "updatedAt": "2026-10-21T20:39:14.000Z",
+                  "uid": "35240-a2f6ffd1-5937-46bb-9933-63260fc35f92"
+                }
+              ],
+              "id": "2c116720-086f-4dd6-bedd-308d95090b68",
+              "createdAt": "2026-10-21T20:39:14.000Z",
+              "updatedAt": "2026-10-21T20:39:14.000Z",
+              "uid": "35240-2c116720-086f-4dd6-bedd-308d95090b68"
+            },
+            {
+              "name": "Get flow control key details",
+              "id": "af2e6b26-9d54-4f0e-a68f-593a93d280fa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/flowControl/:key",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "flowControl",
+                    ":key"
+                  ],
+                  "variable": [
+                    {
+                      "id": "98e0d355-a00a-448c-bdd7-96e7ef387336",
+                      "key": "key",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Retrieve metrics and configuration for a flow control key, including waitlist size, current parallelism and rate counts, and pause/pin status."
+              },
+              "response": [
+                {
+                  "id": "745ca7bf-5ea7-4914-b38a-114bc86dc654",
+                  "name": "Flow control key details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flowControl/:key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flowControl",
+                        ":key"
+                      ],
+                      "variable": [
+                        {
+                          "key": "key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"key\": \"<string>\",\n  \"waitlistSize\": \"<integer>\",\n  \"parallelism\": \"<integer>\",\n  \"activeParallelism\": \"<integer>\",\n  \"rate\": \"<integer>\",\n  \"period\": \"<integer>\",\n  \"currentRate\": \"<integer>\",\n  \"paused\": \"<boolean>\",\n  \"pinned\": \"<boolean>\"\n}",
+                  "createdAt": "2026-10-21T20:39:14.000Z",
+                  "updatedAt": "2026-10-21T20:39:14.000Z",
+                  "uid": "35240-745ca7bf-5ea7-4914-b38a-114bc86dc654"
+                },
+                {
+                  "id": "75201026-a348-4dae-83fb-060036c9c55b",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/flowControl/:key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "flowControl",
+                        ":key"
+                      ],
+                      "variable": [
+                        {
+                          "key": "key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:39:14.000Z",
+                  "updatedAt": "2026-10-21T20:39:14.000Z",
+                  "uid": "35240-75201026-a348-4dae-83fb-060036c9c55b"
+                }
+              ],
+              "createdAt": "2026-10-21T20:39:14.000Z",
+              "updatedAt": "2026-10-21T20:39:14.000Z",
+              "uid": "35240-af2e6b26-9d54-4f0e-a68f-593a93d280fa"
+            }
+          ],
+          "id": "f38756cb-523b-483e-8d66-5539c8767338",
+          "createdAt": "2026-10-21T20:39:14.000Z",
+          "updatedAt": "2026-10-21T20:39:14.000Z",
+          "uid": "35240-f38756cb-523b-483e-8d66-5539c8767338"
+        },
+        {
+          "name": "List all flow control keys",
+          "id": "387954a0-354c-48ea-8761-0d59efedcff5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "cbb7f585-1de3-4f9a-9d74-ba3ec859b85f",
-              "name": "Flow control key details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flowControl",
-                    ":key"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "key",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"key\": \"string\",\n  \"waitlistSize\": 4625,\n  \"parallelism\": 6694,\n  \"activeParallelism\": 9843,\n  \"rate\": 730,\n  \"period\": 8980,\n  \"currentRate\": 6699,\n  \"paused\": true,\n  \"pinned\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "17c77d5d-1f96-4da2-9f4b-b1b33f0ec386",
-              "name": "Resource not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flowControl",
-                    ":key"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "key",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "923d6172-af26-4663-bdc5-e058dd7d6715",
-          "name": "Pause delivery for a flow control key",
-          "request": {
-            "name": "Pause delivery for a flow control key",
-            "description": {
-              "content": "Pause all message delivery for the specified flow control key.",
-              "type": "text/plain"
-            },
             "url": {
-              "path": [
-                "flowControl",
-                ":key",
-                "pause"
-              ],
+              "raw": "{{baseUrl}}/flowControl",
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "key",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "6ade497a-d084-43a2-94b8-71d85bb5a3ce",
-              "name": "Flow control key paused",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flowControl",
-                    ":key",
-                    "pause"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "key",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e3958fa0-64b9-4851-8391-e8f0b21abf1c",
-          "name": "Resume delivery for a flow control key",
-          "request": {
-            "name": "Resume delivery for a flow control key",
-            "description": {
-              "content": "Resume message delivery for a paused flow control key.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "flowControl",
-                ":key",
-                "resume"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "key",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "7a1d55ed-4af4-4ad1-aae9-0f8ed4cc734a",
-              "name": "Flow control key resumed",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flowControl",
-                    ":key",
-                    "resume"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "key",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "32987134-30bb-4467-86ef-5abb3478291d",
-          "name": "Pin flow control key configuration",
-          "request": {
-            "name": "Pin flow control key configuration",
-            "description": {
-              "content": "Lock the parallelism and/or rate configuration of a flow control key to prevent override by incoming message headers.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "flowControl",
-                ":key",
-                "pin"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "parallelism",
-                  "value": "<integer>",
-                  "description": "Maximum parallel deliveries to pin"
-                },
-                {
-                  "disabled": false,
-                  "key": "rate",
-                  "value": "<integer>",
-                  "description": "Rate limit to pin"
-                },
-                {
-                  "disabled": false,
-                  "key": "period",
-                  "value": "<integer>",
-                  "description": "Rate period in seconds"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "key",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "2a3a1f42-00a2-4235-a7a8-e4e6664e454b",
-              "name": "Flow control key pinned",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flowControl",
-                    ":key",
-                    "pin"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "parallelism",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "rate",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "period",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "key",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "50ca0dd5-e723-49ee-a006-09bfc1e20557",
-          "name": "Unpin flow control key configuration",
-          "request": {
-            "name": "Unpin flow control key configuration",
-            "description": {
-              "content": "Allow incoming messages to override the flow control key configuration.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "flowControl",
-                ":key",
-                "unpin"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "parallelism",
-                  "value": "<boolean>",
-                  "description": "Unpin parallelism setting"
-                },
-                {
-                  "disabled": false,
-                  "key": "rate",
-                  "value": "<boolean>",
-                  "description": "Unpin rate setting"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "key",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "e5ef6a1c-368f-46a0-8311-74e40908939f",
-              "name": "Flow control key unpinned",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flowControl",
-                    ":key",
-                    "unpin"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "parallelism",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "rate",
-                      "value": "<boolean>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "key",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "94dafae7-f8ec-46a0-8ada-47363d3c47b0",
-          "name": "Reset rate count for a flow control key",
-          "request": {
-            "name": "Reset rate count for a flow control key",
-            "description": {
-              "content": "Reset the rate count and end the current rate period immediately.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "flowControl",
-                ":key",
-                "resetRate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "key",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "c035c36f-7f60-4437-b6a7-31d557d74994",
-              "name": "Rate reset",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "flowControl",
-                    ":key",
-                    "resetRate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "key",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ca84c8b0-8f15-499a-a3b4-1f04ed0f08c3",
-          "name": "List all flow control keys",
-          "request": {
-            "name": "List all flow control keys",
-            "description": {
-              "content": "Retrieve all active flow control keys for this account.",
-              "type": "text/plain"
-            },
-            "url": {
               "path": [
                 "flowControl"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
+              ]
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "Retrieve all active flow control keys for this account."
           },
           "response": [
             {
-              "id": "5f5fea0f-1b65-40ad-af83-0e9eb848a0de",
+              "id": "e16392ea-67d6-495e-96c4-acfc8c4d939c",
               "name": "List of flow control keys",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "flowControl"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/flowControl",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "flowControl"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"key\": \"string\",\n    \"waitlistSize\": 8621,\n    \"parallelism\": 6239,\n    \"activeParallelism\": 1742,\n    \"rate\": 4510,\n    \"period\": 3477,\n    \"currentRate\": 3218,\n    \"paused\": false,\n    \"pinned\": false\n  },\n  {\n    \"key\": \"string\",\n    \"waitlistSize\": 6323,\n    \"parallelism\": 1413,\n    \"activeParallelism\": 8047,\n    \"rate\": 3593,\n    \"period\": 5076,\n    \"currentRate\": 7189,\n    \"paused\": true,\n    \"pinned\": false\n  }\n]",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "[\n  {\n    \"key\": \"<string>\",\n    \"waitlistSize\": \"<integer>\",\n    \"parallelism\": \"<integer>\",\n    \"activeParallelism\": \"<integer>\",\n    \"rate\": \"<integer>\",\n    \"period\": \"<integer>\",\n    \"currentRate\": \"<integer>\",\n    \"paused\": \"<boolean>\",\n    \"pinned\": \"<boolean>\"\n  },\n  {\n    \"key\": \"<string>\",\n    \"waitlistSize\": \"<integer>\",\n    \"parallelism\": \"<integer>\",\n    \"activeParallelism\": \"<integer>\",\n    \"rate\": \"<integer>\",\n    \"period\": \"<integer>\",\n    \"currentRate\": \"<integer>\",\n    \"paused\": \"<boolean>\",\n    \"pinned\": \"<boolean>\"\n  }\n]",
+              "createdAt": "2026-10-21T20:39:14.000Z",
+              "updatedAt": "2026-10-21T20:39:14.000Z",
+              "uid": "35240-e16392ea-67d6-495e-96c4-acfc8c4d939c"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-21T20:39:14.000Z",
+          "updatedAt": "2026-10-21T20:39:14.000Z",
+          "uid": "35240-387954a0-354c-48ea-8761-0d59efedcff5"
+        }
+      ],
+      "id": "b24ae338-0e07-4ede-8235-d0bca9dbc211",
+      "createdAt": "2026-10-21T20:39:14.000Z",
+      "updatedAt": "2026-10-21T20:39:14.000Z",
+      "uid": "35240-b24ae338-0e07-4ede-8235-d0bca9dbc211"
+    },
+    {
+      "name": "globalParallelism",
+      "item": [
+        {
+          "name": "Get global parallelism status",
+          "id": "94c31835-8ad2-4f21-a589-631bb49186ad",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1588903b-2386-4082-9523-39cf2e400c63",
-          "name": "Get global parallelism status",
+          },
           "request": {
-            "name": "Get global parallelism status",
-            "description": {
-              "content": "Retrieve the global parallelism maximum and current active delivery count across all queues and flow control keys.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "globalParallelism"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/globalParallelism",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "globalParallelism"
+              ]
+            },
+            "description": "Retrieve the global parallelism maximum and current active delivery count across all queues and flow control keys."
           },
           "response": [
             {
-              "id": "be84b6fa-cf0f-400d-b40d-7c42691250bf",
+              "id": "2034e86a-0fd0-409d-b47d-7d4f4a657696",
               "name": "Global parallelism info",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "globalParallelism"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/globalParallelism",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "globalParallelism"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"max\": 9594,\n  \"active\": 4892\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"max\": \"<integer>\",\n  \"active\": \"<integer>\"\n}",
+              "createdAt": "2026-10-21T20:39:14.000Z",
+              "updatedAt": "2026-10-21T20:39:14.000Z",
+              "uid": "35240-2034e86a-0fd0-409d-b47d-7d4f4a657696"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:39:14.000Z",
+          "updatedAt": "2026-10-21T20:39:14.000Z",
+          "uid": "35240-94c31835-8ad2-4f21-a589-631bb49186ad"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://qstash.upstash.io/v2",
-      "key": "baseUrl"
+      "id": "ce0039bc-72bd-4b2c-a946-4258c6660566",
+      "createdAt": "2026-10-21T20:39:14.000Z",
+      "updatedAt": "2026-10-21T20:39:14.000Z",
+      "uid": "35240-ce0039bc-72bd-4b2c-a946-4258c6660566"
     }
   ],
   "auth": {
@@ -823,17 +808,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "3f027d76-619a-400a-a338-6d9700ab9602",
-    "name": "QStash Dead Letter Queue Flow Control API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.\n\nContact Support:\n Name: Upstash Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://qstash.upstash.io/v2"
     }
-  }
+  ]
 }

@@ -1,175 +1,174 @@
 {
+  "info": {
+    "_postman_id": "2fd47445-8e5b-4ad0-aa27-bd66ca3beea7",
+    "name": "QStash Logs API",
+    "description": "QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management.\n\nContact Support:\n Name: Upstash Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:39:18.000Z",
+    "updatedAt": "2026-10-21T20:39:19.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2fd47445-8e5b-4ad0-aa27-bd66ca3beea7"
+  },
   "item": [
     {
-      "id": "2d81cf23-73aa-43a6-9996-d293e0fba03c",
-      "name": "Logs",
-      "description": {
-        "content": "Retrieve message delivery logs",
-        "type": "text/plain"
-      },
+      "name": "logs",
       "item": [
         {
-          "id": "d536cdc5-9e76-4923-b20d-3c18fbb14c90",
           "name": "Retrieve message delivery logs",
+          "id": "11a1f5ee-4267-4208-a3cd-4b1b20b47be0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Retrieve message delivery logs",
-            "description": {
-              "content": "Retrieve logs of message delivery attempts, statuses, and events for debugging and auditing purposes.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "logs"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Pagination cursor from a previous response"
-                },
-                {
-                  "disabled": false,
-                  "key": "filter",
-                  "value": "<string>",
-                  "description": "Filter expression for logs"
-                }
-              ],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/logs?cursor=<string>&filter=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logs"
+              ],
+              "query": [
+                {
+                  "description": "Pagination cursor from a previous response",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter expression for logs",
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve logs of message delivery attempts, statuses, and events for debugging and auditing purposes."
           },
           "response": [
             {
-              "id": "cc44e5cc-1ae6-4ba6-9b00-7b45ee841baa",
+              "id": "1eecb603-f4f9-45ff-8cc3-5966f0137904",
               "name": "Message delivery logs",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "logs"
-                  ],
+                  "raw": "{{baseUrl}}/logs?cursor=<string>&filter=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "logs"
+                  ],
                   "query": [
                     {
+                      "description": "Pagination cursor from a previous response",
                       "key": "cursor",
                       "value": "<string>"
                     },
                     {
+                      "description": "Filter expression for logs",
                       "key": "filter",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"cursor\": \"string\",\n  \"messages\": [\n    {\n      \"messageId\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"DELIVERED\",\n      \"createdAt\": 2297,\n      \"nextDeliveryTime\": 5306,\n      \"notBefore\": 9852,\n      \"scheduleId\": \"string\",\n      \"topicName\": \"string\",\n      \"responseStatus\": 8938,\n      \"retried\": 8893,\n      \"maxRetries\": 3846\n    },\n    {\n      \"messageId\": \"string\",\n      \"url\": \"string\",\n      \"state\": \"CANCELLED\",\n      \"createdAt\": 1198,\n      \"nextDeliveryTime\": 2104,\n      \"notBefore\": 3518,\n      \"scheduleId\": \"string\",\n      \"topicName\": \"string\",\n      \"responseStatus\": 683,\n      \"retried\": 1941,\n      \"maxRetries\": 2633\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"cursor\": \"<string>\",\n  \"messages\": [\n    {\n      \"messageId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"state\": \"ERROR\",\n      \"createdAt\": \"<integer>\",\n      \"nextDeliveryTime\": \"<integer>\",\n      \"notBefore\": \"<integer>\",\n      \"scheduleId\": \"<string>\",\n      \"topicName\": \"<string>\",\n      \"responseStatus\": \"<integer>\",\n      \"retried\": \"<integer>\",\n      \"maxRetries\": \"<integer>\"\n    },\n    {\n      \"messageId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"state\": \"ERROR\",\n      \"createdAt\": \"<integer>\",\n      \"nextDeliveryTime\": \"<integer>\",\n      \"notBefore\": \"<integer>\",\n      \"scheduleId\": \"<string>\",\n      \"topicName\": \"<string>\",\n      \"responseStatus\": \"<integer>\",\n      \"retried\": \"<integer>\",\n      \"maxRetries\": \"<integer>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:39:19.000Z",
+              "updatedAt": "2026-10-21T20:39:19.000Z",
+              "uid": "35240-1eecb603-f4f9-45ff-8cc3-5966f0137904"
             },
             {
-              "id": "8f407c4b-c028-4efd-bf89-3c9c5efeec14",
+              "id": "5ec96a5c-3230-4e32-b0e2-78c50711cd89",
               "name": "Missing or invalid authentication token",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "logs"
-                  ],
+                  "raw": "{{baseUrl}}/logs?cursor=<string>&filter=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "logs"
+                  ],
                   "query": [
                     {
+                      "description": "Pagination cursor from a previous response",
                       "key": "cursor",
                       "value": "<string>"
                     },
                     {
+                      "description": "Filter expression for logs",
                       "key": "filter",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:39:19.000Z",
+              "updatedAt": "2026-10-21T20:39:19.000Z",
+              "uid": "35240-5ec96a5c-3230-4e32-b0e2-78c50711cd89"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:39:19.000Z",
+          "updatedAt": "2026-10-21T20:39:19.000Z",
+          "uid": "35240-11a1f5ee-4267-4208-a3cd-4b1b20b47be0"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://qstash.upstash.io/v2",
-      "key": "baseUrl"
+      "id": "1de00ec1-a727-499f-9f55-5585f0510ad4",
+      "createdAt": "2026-10-21T20:39:19.000Z",
+      "updatedAt": "2026-10-21T20:39:19.000Z",
+      "uid": "35240-1de00ec1-a727-499f-9f55-5585f0510ad4"
     }
   ],
   "auth": {
@@ -177,17 +176,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2e4407b6-3a5a-44bc-a2ba-a1bf26899730",
-    "name": "QStash Dead Letter Queue Logs API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.\n\nContact Support:\n Name: Upstash Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://qstash.upstash.io/v2"
     }
-  }
+  ]
 }

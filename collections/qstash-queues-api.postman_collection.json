@@ -1,392 +1,841 @@
 {
+  "info": {
+    "_postman_id": "c84c6eb1-054d-4214-bc15-e1a4d5eeaee6",
+    "name": "QStash Queues API",
+    "description": "QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management.\n\nContact Support:\n Name: Upstash Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:39:29.000Z",
+    "updatedAt": "2026-10-21T20:39:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c84c6eb1-054d-4214-bc15-e1a4d5eeaee6"
+  },
   "item": [
     {
-      "id": "492a6642-6ccd-4516-8ed9-25235c6d66e7",
-      "name": "Queues",
-      "description": {
-        "content": "Manage FIFO queues",
-        "type": "text/plain"
-      },
+      "name": "enqueue",
       "item": [
         {
-          "id": "76f2b66d-981d-414f-ab8b-2936ccccf945",
-          "name": "Enqueue a message to a FIFO queue",
-          "request": {
-            "name": "Enqueue a message to a FIFO queue",
-            "description": {
-              "content": "Add a message to the specified FIFO queue for ordered delivery to the destination URL.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "enqueue",
-                ":queueName",
-                ":destination"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "queueName",
-                  "description": "(Required) Name of the target queue"
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "destination",
-                  "description": "(Required) Destination URL for message delivery"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "Delay message delivery by this duration",
-                "key": "Upstash-Delay",
-                "value": "<string>"
-              },
-              {
-                "disabled": false,
-                "description": "Number of retry attempts",
-                "key": "Upstash-Retries",
-                "value": "<integer>"
-              },
-              {
-                "disabled": false,
-                "description": "Manual deduplication ID",
-                "key": "Upstash-Deduplication-Id",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"key_0\": true,\n  \"key_1\": 1914.229243148352,\n  \"key_2\": false\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{queueName}",
+          "item": [
             {
-              "id": "c1fc5cd8-95d1-41f7-91f9-59266e1e5051",
-              "name": "Message enqueued successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "enqueue",
-                    ":queueName",
-                    ":destination"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "queueName",
-                      "description": "(Required) Name of the target queue"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "destination",
-                      "description": "(Required) Destination URL for message delivery"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Delay message delivery by this duration",
-                    "key": "Upstash-Delay",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Number of retry attempts",
-                    "key": "Upstash-Retries",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Manual deduplication ID",
-                    "key": "Upstash-Deduplication-Id",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": 9966,\n  \"key_1\": 2210.379327453883,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
+              "name": "{destination}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Enqueue a message to a FIFO queue",
+                  "id": "d602b2ab-e7d7-429c-a007-11a7c9b2d7e9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Delay message delivery by this duration",
+                        "key": "Upstash-Delay",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "Number of retry attempts",
+                        "key": "Upstash-Retries",
+                        "value": "<integer>"
+                      },
+                      {
+                        "description": "Manual deduplication ID",
+                        "key": "Upstash-Deduplication-Id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"dolor88\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/enqueue/:queueName/:destination",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "enqueue",
+                        ":queueName",
+                        ":destination"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1e0ecff5-9291-453b-82e5-c4f94bba1fca",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) Name of the target queue"
+                        },
+                        {
+                          "id": "30c36a54-e233-4d7e-865a-caa262593d7b",
+                          "key": "destination",
+                          "value": "<string>",
+                          "description": "(Required) Destination URL for message delivery"
+                        }
+                      ]
+                    },
+                    "description": "Add a message to the specified FIFO queue for ordered delivery to the destination URL."
+                  },
+                  "response": [
+                    {
+                      "id": "be72346e-aea8-4cd0-801d-4c6d531a865f",
+                      "name": "Message enqueued successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Delay message delivery by this duration",
+                            "key": "Upstash-Delay",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Number of retry attempts",
+                            "key": "Upstash-Retries",
+                            "value": "<integer>"
+                          },
+                          {
+                            "description": "Manual deduplication ID",
+                            "key": "Upstash-Deduplication-Id",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"dolor88\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/enqueue/:queueName/:destination",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "enqueue",
+                            ":queueName",
+                            ":destination"
+                          ],
+                          "variable": [
+                            {
+                              "key": "queueName"
+                            },
+                            {
+                              "key": "destination"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"messageId\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:39:30.000Z",
+                      "updatedAt": "2026-10-21T20:39:30.000Z",
+                      "uid": "35240-be72346e-aea8-4cd0-801d-4c6d531a865f"
+                    },
+                    {
+                      "id": "dfe88d67-5cf2-4d90-9946-4e0f8795f319",
+                      "name": "Missing or invalid authentication token",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Delay message delivery by this duration",
+                            "key": "Upstash-Delay",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Number of retry attempts",
+                            "key": "Upstash-Retries",
+                            "value": "<integer>"
+                          },
+                          {
+                            "description": "Manual deduplication ID",
+                            "key": "Upstash-Deduplication-Id",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"dolor88\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/enqueue/:queueName/:destination",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "enqueue",
+                            ":queueName",
+                            ":destination"
+                          ],
+                          "variable": [
+                            {
+                              "key": "queueName"
+                            },
+                            {
+                              "key": "destination"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:39:30.000Z",
+                      "updatedAt": "2026-10-21T20:39:30.000Z",
+                      "uid": "35240-dfe88d67-5cf2-4d90-9946-4e0f8795f319"
+                    },
+                    {
+                      "id": "a9da7d36-f184-45a0-916e-c66d51a969f0",
+                      "name": "Rate limit exceeded",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Delay message delivery by this duration",
+                            "key": "Upstash-Delay",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Number of retry attempts",
+                            "key": "Upstash-Retries",
+                            "value": "<integer>"
+                          },
+                          {
+                            "description": "Manual deduplication ID",
+                            "key": "Upstash-Deduplication-Id",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"dolor88\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/enqueue/:queueName/:destination",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "enqueue",
+                            ":queueName",
+                            ":destination"
+                          ],
+                          "variable": [
+                            {
+                              "key": "queueName"
+                            },
+                            {
+                              "key": "destination"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Maximum requests allowed in the current 1-second window",
+                            "type": "text/plain"
+                          },
+                          "key": "Burst-RateLimit-Limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Requests remaining in the current window",
+                            "type": "text/plain"
+                          },
+                          "key": "Burst-RateLimit-Remaining",
+                          "value": "<integer>"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Unix timestamp when the rate limit window resets",
+                            "type": "text/plain"
+                          },
+                          "key": "Burst-RateLimit-Reset",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:39:30.000Z",
+                      "updatedAt": "2026-10-21T20:39:30.000Z",
+                      "uid": "35240-a9da7d36-f184-45a0-916e-c66d51a969f0"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:39:30.000Z",
+                  "updatedAt": "2026-10-21T20:39:30.000Z",
+                  "uid": "35240-d602b2ab-e7d7-429c-a007-11a7c9b2d7e9"
                 }
               ],
-              "body": "{\n  \"messageId\": \"msg_2XavMmRcJHJf7HkNtNqjfVf8uQe\",\n  \"url\": \"https://example.com/webhook\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "aad4b954-9627-457a-a64e-6f8db7d7e139",
-              "name": "Missing or invalid authentication token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "enqueue",
-                    ":queueName",
-                    ":destination"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "queueName",
-                      "description": "(Required) Name of the target queue"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "destination",
-                      "description": "(Required) Destination URL for message delivery"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Delay message delivery by this duration",
-                    "key": "Upstash-Delay",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Number of retry attempts",
-                    "key": "Upstash-Retries",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Manual deduplication ID",
-                    "key": "Upstash-Deduplication-Id",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": 9966,\n  \"key_1\": 2210.379327453883,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "976585d0-fa34-419f-8cd3-8a099b41bf38",
-              "name": "Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "enqueue",
-                    ":queueName",
-                    ":destination"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "queueName",
-                      "description": "(Required) Name of the target queue"
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "destination",
-                      "description": "(Required) Destination URL for message delivery"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Delay message delivery by this duration",
-                    "key": "Upstash-Delay",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Number of retry attempts",
-                    "key": "Upstash-Retries",
-                    "value": "<integer>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "Manual deduplication ID",
-                    "key": "Upstash-Deduplication-Id",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": 9966,\n  \"key_1\": 2210.379327453883,\n  \"key_2\": \"string\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "disabled": false,
-                  "description": "Maximum requests allowed in the current 1-second window",
-                  "key": "Burst-RateLimit-Limit",
-                  "value": "6078"
-                },
-                {
-                  "disabled": false,
-                  "description": "Requests remaining in the current window",
-                  "key": "Burst-RateLimit-Remaining",
-                  "value": "6078"
-                },
-                {
-                  "disabled": false,
-                  "description": "Unix timestamp when the rate limit window resets",
-                  "key": "Burst-RateLimit-Reset",
-                  "value": "6078"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "f5e882d4-d007-406a-9071-77f214995731",
+              "createdAt": "2026-10-21T20:39:30.000Z",
+              "updatedAt": "2026-10-21T20:39:30.000Z",
+              "uid": "35240-f5e882d4-d007-406a-9071-77f214995731"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "946426f5-acfb-4a72-bf52-8bbcdcf87f02",
+          "createdAt": "2026-10-21T20:39:30.000Z",
+          "updatedAt": "2026-10-21T20:39:30.000Z",
+          "uid": "35240-946426f5-acfb-4a72-bf52-8bbcdcf87f02"
+        }
+      ],
+      "id": "5c5309a5-0233-409a-a696-f5853b82d02e",
+      "createdAt": "2026-10-21T20:39:30.000Z",
+      "updatedAt": "2026-10-21T20:39:30.000Z",
+      "uid": "35240-5c5309a5-0233-409a-a696-f5853b82d02e"
+    },
+    {
+      "name": "queues",
+      "item": [
+        {
+          "name": "{queueName}",
+          "item": [
+            {
+              "name": "pause",
+              "item": [
+                {
+                  "name": "Pause a queue",
+                  "id": "9a9e418c-6ae8-41bf-976c-ae7ac36b90ea",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/queues/:queueName/pause",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "queues",
+                        ":queueName",
+                        "pause"
+                      ],
+                      "variable": [
+                        {
+                          "id": "166fe049-ad52-488c-aa68-e364cfc5e18e",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Pause delivery for a named queue."
+                  },
+                  "response": [
+                    {
+                      "id": "2cac3c4d-3d70-411c-b102-1710ec35f9d3",
+                      "name": "Queue paused",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/queues/:queueName/pause",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "queues",
+                            ":queueName",
+                            "pause"
+                          ],
+                          "variable": [
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:39:30.000Z",
+                      "updatedAt": "2026-10-21T20:39:30.000Z",
+                      "uid": "35240-2cac3c4d-3d70-411c-b102-1710ec35f9d3"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:39:30.000Z",
+                  "updatedAt": "2026-10-21T20:39:30.000Z",
+                  "uid": "35240-9a9e418c-6ae8-41bf-976c-ae7ac36b90ea"
+                }
+              ],
+              "id": "52a8a85d-7bea-4bcc-82f8-31cc6e95fb79",
+              "createdAt": "2026-10-21T20:39:30.000Z",
+              "updatedAt": "2026-10-21T20:39:30.000Z",
+              "uid": "35240-52a8a85d-7bea-4bcc-82f8-31cc6e95fb79"
+            },
+            {
+              "name": "resume",
+              "item": [
+                {
+                  "name": "Resume a paused queue",
+                  "id": "6b97d03f-468b-4ac7-a4b9-4da2ca931889",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/queues/:queueName/resume",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "queues",
+                        ":queueName",
+                        "resume"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e6f6cb90-da42-4070-946a-d1987b58fd5b",
+                          "key": "queueName",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Resume delivery for a paused queue."
+                  },
+                  "response": [
+                    {
+                      "id": "5998fb00-3a1b-4354-98ab-3d630552dc39",
+                      "name": "Queue resumed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/queues/:queueName/resume",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "queues",
+                            ":queueName",
+                            "resume"
+                          ],
+                          "variable": [
+                            {
+                              "key": "queueName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:39:30.000Z",
+                      "updatedAt": "2026-10-21T20:39:30.000Z",
+                      "uid": "35240-5998fb00-3a1b-4354-98ab-3d630552dc39"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:39:30.000Z",
+                  "updatedAt": "2026-10-21T20:39:30.000Z",
+                  "uid": "35240-6b97d03f-468b-4ac7-a4b9-4da2ca931889"
+                }
+              ],
+              "id": "dd201e46-de49-4221-add3-a3822bd14d33",
+              "createdAt": "2026-10-21T20:39:30.000Z",
+              "updatedAt": "2026-10-21T20:39:30.000Z",
+              "uid": "35240-dd201e46-de49-4221-add3-a3822bd14d33"
+            },
+            {
+              "name": "Get queue details",
+              "id": "11ea4e51-69f9-4220-8b17-d661438f010a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/queues/:queueName",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queues",
+                    ":queueName"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d2dcdf85-0b4a-4bfe-ba64-d5c5dfd9640e",
+                      "key": "queueName",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Retrieve configuration and status of a named queue."
+              },
+              "response": [
+                {
+                  "id": "a156858e-d3fa-4eb0-b2ff-d6386d9f3c94",
+                  "name": "Queue details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/queues/:queueName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "queues",
+                        ":queueName"
+                      ],
+                      "variable": [
+                        {
+                          "key": "queueName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"name\": \"<string>\",\n  \"parallelism\": \"<integer>\",\n  \"paused\": \"<boolean>\",\n  \"pendingMessages\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-21T20:39:30.000Z",
+                  "updatedAt": "2026-10-21T20:39:30.000Z",
+                  "uid": "35240-a156858e-d3fa-4eb0-b2ff-d6386d9f3c94"
+                },
+                {
+                  "id": "b281857e-a1c6-4290-a212-d953a6cc5940",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/queues/:queueName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "queues",
+                        ":queueName"
+                      ],
+                      "variable": [
+                        {
+                          "key": "queueName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:39:30.000Z",
+                  "updatedAt": "2026-10-21T20:39:30.000Z",
+                  "uid": "35240-b281857e-a1c6-4290-a212-d953a6cc5940"
+                }
+              ],
+              "createdAt": "2026-10-21T20:39:30.000Z",
+              "updatedAt": "2026-10-21T20:39:30.000Z",
+              "uid": "35240-11ea4e51-69f9-4220-8b17-d661438f010a"
+            },
+            {
+              "name": "Delete a queue",
+              "id": "938c309b-d5e1-49d4-8726-2c62ff284791",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/queues/:queueName",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queues",
+                    ":queueName"
+                  ],
+                  "variable": [
+                    {
+                      "id": "4ffbb89e-5b85-4e36-9adc-9a4602657794",
+                      "key": "queueName",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Delete a queue and all its pending messages."
+              },
+              "response": [
+                {
+                  "id": "36b7f3c5-adac-43b8-a238-a647c2fc27be",
+                  "name": "Queue deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/queues/:queueName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "queues",
+                        ":queueName"
+                      ],
+                      "variable": [
+                        {
+                          "key": "queueName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:39:30.000Z",
+                  "updatedAt": "2026-10-21T20:39:30.000Z",
+                  "uid": "35240-36b7f3c5-adac-43b8-a238-a647c2fc27be"
+                },
+                {
+                  "id": "7ef7f8f6-2feb-44cb-9052-27dd00b4652a",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/queues/:queueName",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "queues",
+                        ":queueName"
+                      ],
+                      "variable": [
+                        {
+                          "key": "queueName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:39:30.000Z",
+                  "updatedAt": "2026-10-21T20:39:30.000Z",
+                  "uid": "35240-7ef7f8f6-2feb-44cb-9052-27dd00b4652a"
+                }
+              ],
+              "createdAt": "2026-10-21T20:39:30.000Z",
+              "updatedAt": "2026-10-21T20:39:30.000Z",
+              "uid": "35240-938c309b-d5e1-49d4-8726-2c62ff284791"
+            }
+          ],
+          "id": "241c32af-0d79-4be4-bf62-fcb53c3605c0",
+          "createdAt": "2026-10-21T20:39:30.000Z",
+          "updatedAt": "2026-10-21T20:39:30.000Z",
+          "uid": "35240-241c32af-0d79-4be4-bf62-fcb53c3605c0"
         },
         {
-          "id": "fc017d17-4260-44b6-b23e-e9bf3b971984",
           "name": "Create or update a queue",
+          "id": "6e32bc10-71b8-42af-a227-6271197b5f3b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Create or update a queue",
-            "description": {
-              "content": "Create a new queue or update an existing queue's configuration such as parallelism. Queues provide FIFO ordered message delivery.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "queues",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -397,603 +846,144 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"queueName\": \"<string>\",\n  \"parallelism\": \"<integer>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/queues/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "queues",
+                ""
+              ]
+            },
+            "description": "Create a new queue or update an existing queue's configuration such as parallelism. Queues provide FIFO ordered message delivery."
           },
           "response": [
             {
-              "id": "496a0363-b7d3-4640-9e41-09b989b6e140",
+              "id": "949daafb-f543-46d4-96c2-e9a0c28af527",
               "name": "Queue created or updated",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "queues",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"queueName\": \"my-queue\",\n  \"parallelism\": 2\n}",
+                  "raw": "{\n  \"queueName\": \"<string>\",\n  \"parallelism\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/queues/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queues",
+                    ""
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:39:30.000Z",
+              "updatedAt": "2026-10-21T20:39:30.000Z",
+              "uid": "35240-949daafb-f543-46d4-96c2-e9a0c28af527"
             },
             {
-              "id": "d21d8430-3ae3-407d-84df-3551d8f2c36c",
+              "id": "4df96333-1f30-4b24-800c-ea9be5de30f6",
               "name": "Missing or invalid authentication token",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "queues",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"queueName\": \"my-queue\",\n  \"parallelism\": 2\n}",
+                  "raw": "{\n  \"queueName\": \"<string>\",\n  \"parallelism\": \"<integer>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/queues/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queues",
+                    ""
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:39:30.000Z",
+              "updatedAt": "2026-10-21T20:39:30.000Z",
+              "uid": "35240-4df96333-1f30-4b24-800c-ea9be5de30f6"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f68fd280-bbd8-40b4-989b-1bcf6b042aea",
-          "name": "Get queue details",
-          "request": {
-            "name": "Get queue details",
-            "description": {
-              "content": "Retrieve configuration and status of a named queue.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "queues",
-                ":queueName"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "queueName",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "11694950-6c78-4b3f-bbff-600fd84451bd",
-              "name": "Queue details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "queues",
-                    ":queueName"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "queueName",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"name\": \"string\",\n  \"parallelism\": 2433,\n  \"paused\": true,\n  \"pendingMessages\": 4453\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a51e2405-8a39-4932-8a23-14cbee5e53fe",
-              "name": "Resource not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "queues",
-                    ":queueName"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "queueName",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c0667505-4b2d-473a-84d7-7de032cc59f8",
-          "name": "Delete a queue",
-          "request": {
-            "name": "Delete a queue",
-            "description": {
-              "content": "Delete a queue and all its pending messages.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "queues",
-                ":queueName"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "queueName",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "5732dbdc-cfc6-4493-9774-200ba357a8e8",
-              "name": "Queue deleted",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "queues",
-                    ":queueName"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "queueName",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "3d5eea48-21ad-432a-a88c-8c5d8e641481",
-              "name": "Resource not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "queues",
-                    ":queueName"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "queueName",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f167122b-d5d4-48a1-b4b9-e599f49381e9",
-          "name": "Pause a queue",
-          "request": {
-            "name": "Pause a queue",
-            "description": {
-              "content": "Pause delivery for a named queue.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "queues",
-                ":queueName",
-                "pause"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "queueName",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "1487a5d1-aa22-4b66-b786-5c3b9a55b42c",
-              "name": "Queue paused",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "queues",
-                    ":queueName",
-                    "pause"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "queueName",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e301b481-a73b-464e-a8e0-51c251d2a293",
-          "name": "Resume a paused queue",
-          "request": {
-            "name": "Resume a paused queue",
-            "description": {
-              "content": "Resume delivery for a paused queue.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "queues",
-                ":queueName",
-                "resume"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "queueName",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "bf6f2a58-8b29-4d01-8d15-5ebe3fc1b6db",
-              "name": "Queue resumed",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "queues",
-                    ":queueName",
-                    "resume"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "queueName",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:39:30.000Z",
+          "updatedAt": "2026-10-21T20:39:30.000Z",
+          "uid": "35240-6e32bc10-71b8-42af-a227-6271197b5f3b"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://qstash.upstash.io/v2",
-      "key": "baseUrl"
+      "id": "9530aae6-c2d8-4c3c-b6f1-263afba29ad0",
+      "createdAt": "2026-10-21T20:39:30.000Z",
+      "updatedAt": "2026-10-21T20:39:30.000Z",
+      "uid": "35240-9530aae6-c2d8-4c3c-b6f1-263afba29ad0"
     }
   ],
   "auth": {
@@ -1001,17 +991,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "944e8f83-b9f2-4214-b624-7f788a3af465",
-    "name": "QStash Dead Letter Queue Queues API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication.\n\nContact Support:\n Name: Upstash Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://qstash.upstash.io/v2"
     }
-  }
+  ]
 }
