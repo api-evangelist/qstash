@@ -1,4 +1,4 @@
-# QStash (qstash)
+# QStash
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,65 +66,168 @@
 
 QStash is a serverless message queue and task scheduling REST API from Upstash that delivers HTTP messages to endpoints reliably without requiring any long-lived connections or infrastructure management. Built entirely on stateless HTTP requests, it is designed for serverless and edge runtimes where traditional message brokers are impractical. QStash supports automatic retries, CRON-based scheduling up to one year in advance, URL group broadcasting for fan-out delivery, FIFO queuing, dead-letter queues, and message deduplication. Developers simply POST a message with a destination URL and QStash handles guaranteed delivery with configurable retry logic and flow control.
 
-- **APIs.json**: https://raw.githubusercontent.com/api-evangelist/qstash/refs/heads/main/apis.yml
-- **Naftiko**: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=qstash-api-evangelist&utm_content=repo
+**Areas:** Message Queue · Task Scheduling · Serverless · HTTP Messaging · Background Jobs · Webhook · Dead Letter Queue · Cron · Upstash
 
-## Tags
+## QStash on APIs.io
 
-- Message Queue
-- Task Scheduling
-- Serverless
-- HTTP Messaging
-- Background Jobs
-- Webhooks
-- Dead Letter Queue
-- CRON
-- Upstash
+Everything profiled for QStash is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/qstash/](https://apis.io/providers/qstash/)** — or go straight to one of the APIs or properties below.
 
-## APIs
+### APIs (7)
 
-| Name | Base URL | Documentation |
-|------|----------|---------------|
-| QStash API | https://qstash.upstash.io/v2 | https://upstash.com/docs/qstash/overall/getstarted |
+- [QStash Dead Letter Queue API](https://apis.io/apis/qstash/qstash-dead-letter-queue-api/) — Manage dead letter queue messages
+- [QStash Flow Control API](https://apis.io/apis/qstash/qstash-flow-control-api/) — Manage flow control keys for rate and parallelism limiting
+- [QStash Logs API](https://apis.io/apis/qstash/qstash-logs-api/) — Retrieve message delivery logs
+- [QStash Messages API](https://apis.io/apis/qstash/qstash-messages-api/) — Publish and manage messages
+- [QStash Queues API](https://apis.io/apis/qstash/qstash-queues-api/) — Manage FIFO queues
+- [QStash Schedules API](https://apis.io/apis/qstash/qstash-schedules-api/) — Create and manage CRON-based scheduled messages
+- [QStash URL Groups API](https://apis.io/apis/qstash/qstash-url-groups-api/) — Manage URL groups for fan-out delivery
 
-## Plans, Rate Limits, and FinOps
+### Published properties
 
-| Resource | File |
-|----------|------|
-| Plans & Pricing | [plans/qstash-plans-pricing.yml](plans/qstash-plans-pricing.yml) |
-| Rate Limits | [rate-limits/qstash-rate-limits.yml](rate-limits/qstash-rate-limits.yml) |
-| FinOps | [finops/qstash-finops.yml](finops/qstash-finops.yml) |
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Plan Summary
+#### MCP servers (2)
 
-| Plan | Price | Messages/Day |
-|------|-------|-------------|
-| Free | $0/month | 1,000 |
-| Pay As You Go | $1.00/100K messages | Unlimited |
-| Fixed 1M | $180/month | 1,000,000 |
-| Fixed 10M | $420/month | 10,000,000 |
-| Enterprise | Custom | 100M+ |
+Model Context Protocol servers that expose the API to agents.
 
-## Timestamps
+- [MCP Server](https://apis.io/servers/qstash/mcp-server/)
+- [MCP Server Source](https://apis.io/servers/qstash/mcp-server-source/)
 
-- **Created**: 2026-06-12
-- **Modified**: 2026-06-12
+#### Agentic access (1)
 
-## Common Links
+Which operations an agent can call, which act, and which need a human in the loop.
 
-| Type | URL |
-|------|-----|
-| Website | https://upstash.com/qstash |
-| Documentation | https://upstash.com/docs/qstash/overall/getstarted |
-| GitHub Org | https://github.com/upstash |
-| LinkedIn | https://www.linkedin.com/company/upstash |
-| Blog | https://upstash.com/blog |
-| Pricing | https://upstash.com/pricing/qstash |
-| Status Page | https://status.upstash.com/ |
-| X (Twitter) | https://x.com/upstash |
+- [Qstash Agentic Access](https://apis.io/agentic-access/qstash/qstash-agentic-access/)
 
-## Maintainers
+#### JSON Schema (2)
 
-| Name | Email |
-|------|-------|
-| Kin Lane | kin@apievangelist.com |
+The data models the API reads and writes.
+
+- [QStash Message](https://apis.io/schemas/qstash/qstash-message/)
+- [QStash Schedule](https://apis.io/schemas/qstash/qstash-schedule/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Qstash Context](https://apis.io/jsonld/qstash/qstash-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Qstash Vocabulary](https://apis.io/vocabularies/qstash/qstash-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Batch Publish](https://apis.io/examples/qstash/batch-publish/)
+- [Create Schedule](https://apis.io/examples/qstash/create-schedule/)
+- [Publish Message](https://apis.io/examples/qstash/publish-message/)
+
+#### Collections (7)
+
+Postman and Open Collection request collections.
+
+- [QStash Dead Letter Queue API](https://apis.io/collections/qstash/open-qstash-dead-letter-queue-api/)
+- [QStash Dead Letter Queue Flow Control API](https://apis.io/collections/qstash/open-qstash-flow-control-api/)
+- [QStash Dead Letter Queue Logs API](https://apis.io/collections/qstash/open-qstash-logs-api/)
+- [QStash Dead Letter Queue Messages API](https://apis.io/collections/qstash/open-qstash-messages-api/)
+- [QStash Dead Letter Queue Queues API](https://apis.io/collections/qstash/open-qstash-queues-api/)
+- [QStash Dead Letter Queue Schedules API](https://apis.io/collections/qstash/open-qstash-schedules-api/)
+- [QStash Dead Letter Queue URL Groups API](https://apis.io/collections/qstash/open-qstash-url-groups-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [QStash — jsonschema rules](https://apis.io/rules/qstash/qstash-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Qstash Authentication](https://apis.io/security/qstash/qstash-authentication/)
+- [Qstash Domain Security](https://apis.io/security/qstash/qstash-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Qstash Plans Pricing](https://apis.io/plans/qstash/qstash-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Qstash Rate Limits](https://apis.io/rate-limits/qstash/qstash-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Qstash Finops](https://apis.io/finops/qstash/qstash-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://upstash.com/qstash)
+- [Documentation](https://upstash.com/docs/qstash/overall/getstarted)
+- [Pricing](https://upstash.com/pricing/qstash)
+- [Blog](https://upstash.com/blog)
+- [Status](https://status.upstash.com/)
+
+## API Evangelist rating
+
+**Kin Score 37.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 65.0 |
+| Contract quality | 57.8 |
+| Contract governance | 23.5 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 18.4 |
+
+**Agent readiness 23.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/qstash/](https://apis.io/providers/qstash/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for QStash: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/qstash/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
